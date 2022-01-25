@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+
+    <PackageId>Helppad</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageVersion>1.2.1</PackageVersion>
+    <PackageTags>
+      dotnet, helpers, libraries, utils, checks, validation, parallel
+    </PackageTags>
+
+    <IsPackable>true</IsPackable>
+    <IsTrimeable>true</IsTrimeable>
+    
+    <PackageProjectUrl>https://github.com/oliver021/helppad-net</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+    <Description>A .NET implementation of several non-cryptographic hashes.</Description>
+    <IsPackable>true</IsPackable>
+    <PackageProjectUrl>https://github.com/oliver021/helppad-net</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>unsafe helpers</PackageTags>
+    <IncludeSymbols>true</IncludeSymbols>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+</Project>
