@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\Helppad.csproj" />
+    <ProjectReference Include="..\Helppad\Helppad.csproj" />
   </ItemGroup>
 
 </Project>

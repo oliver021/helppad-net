@@ -85,6 +85,7 @@ namespace Helppad
         public PipelineBuilder<TInitial, K> Pipe(Func<K, Task> pipe)
         {
             Review.NotNull(pipe, "the pipe action can be null");
+            
             _pipes.Add(PipelineBuilder.CreatePipeAsync(pipe));
             return this;
         }

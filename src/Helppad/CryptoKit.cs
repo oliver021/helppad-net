@@ -280,6 +280,19 @@ namespace Helppad
 
             using var aesAlg = Aes.Create();
             using var decryptor = aesAlg.CreateDecryptor(key, iv);
+            string result = DecryptFrom(cipher, decryptor);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Decryptation from a chipher block and transformer.
+        /// </summary>
+        /// <param name="cipher"></param>
+        /// <param name="decryptor"></param>
+        /// <returns></returns>
+        public static string DecryptFrom(byte[] cipher, ICryptoTransform decryptor)
+        {
             string result;
             using (var msDecrypt = new MemoryStream(cipher))
             {
@@ -301,24 +314,46 @@ namespace Helppad
         {
             using var aesAlg = Aes.Create();
             using var encryptor = aesAlg.CreateEncryptor(key, aesAlg.IV);
-            using var msEncrypt = new MemoryStream();
-            using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-            using (var swEncrypt = new StreamWriter(csEncrypt))
-            {
-                swEncrypt.Write(text);
-            }
-
+            MemoryStream msEncrypt = EncryptData(text, encryptor);
             var iv = aesAlg.IV;
+            return Convert.ToBase64String(PutIVInBlock(msEncrypt, iv));
+        }
 
+        /// <summary>
+        /// Put the Initial Vector in data block.
+        /// </summary>
+        /// <param name="msEncrypt"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        private static byte[] PutIVInBlock(MemoryStream msEncrypt, byte[] iv)
+        {
             var decryptedContent = msEncrypt.ToArray();
+
 
             var result = new byte[iv.Length + decryptedContent.Length];
 
             // put IV and body cipher
             Buffer.BlockCopy(iv, 0, result, 0, iv.Length);
             Buffer.BlockCopy(decryptedContent, 0, result, iv.Length, decryptedContent.Length);
+            return result;
+        }
 
-            return Convert.ToBase64String(result);
+        /// <summary>
+        /// Make a encryptation from text and algorithm.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="encryptor"></param>
+        /// <returns></returns>
+        public static MemoryStream EncryptData(string text, ICryptoTransform encryptor)
+        {
+            var msEncrypt = new MemoryStream();
+            using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+            using (var swEncrypt = new StreamWriter(csEncrypt))
+            {
+                swEncrypt.Write(text);
+            }
+
+            return msEncrypt;
         }
 
         /// <summary>

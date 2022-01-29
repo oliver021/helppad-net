@@ -11,27 +11,27 @@ namespace Helppad
     public static class FeedBack
     {
         /// <summary>
-        /// 
+        /// This contract represent a supplier object.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         public interface ISupplier<T>
         {
             /// <summary>
-            /// 
+            /// The supplier method that push feedback.
             /// </summary>
-            /// <param name="push"></param>
-            /// <returns></returns>
+            /// <param name="push">The pusher action.</param>
+            /// <returns>A task that represent the feedback process.</returns>
             public Task SupplyFeed(Func<T, Task> push);
         }
 
         /// <summary>
-        /// 
+        /// This contract represent a supplier reciver.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         public interface IFeedBackReciver<T>
         {
             /// <summary>
-            /// 
+            /// This method should be called in implemention for each feddback recived.
             /// </summary>
             /// <param name="feed"></param>
             public void OnFeedBack(T feed);
@@ -75,11 +75,10 @@ namespace Helppad
                 back.Release(1);
             },
             // for simple call
-            call: delegate {
-                return front.Task;
-            },
+            call: () => front.Task,
             // for complete task
-            complete: func.Invoke(async x => {
+            complete: func.Invoke(async x => 
+            {
                 await back.WaitAsync(cancellation.Token);
 
                 // check cancellation
@@ -134,7 +133,21 @@ namespace Helppad
     /// <typeparam name="T"></typeparam>
     public class FeedBack<T> : IObservable<T>, IDisposable
     {
+        /// <summary>
+        /// The task that represent the execution running.
+        /// </summary>
         public Task Complete { get; }
+
+        /// <summary>
+        /// Return true if is the feedback is finshed.
+        /// </summary>
+        public bool Finished { get => Complete.IsCompleted; }
+
+        /// <summary>
+        ///  Return true if is the feedback has pedding work.
+        /// </summary>
+        public bool Pending { get => Complete.IsCompleted is false; }
+
 
         readonly Func<Task<T>> _call;
         readonly Action _free;
@@ -164,16 +177,27 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Usage for next value
+        /// Usage for next value.
         /// </summary>
         /// <returns></returns>
-        public Task<T> NextAsync() =>
-            _call.Invoke()
-            .ContinueWith(x => 
+        public Task<T> NextAsync()
+        {
+            // verify if is complete
+            if (Complete.IsCompleted == true)
             {
-                _free.Invoke();
-                return x.Result;
-            });
+                // then return null
+                return Task.FromResult<T>(default);
+            }
+
+            // using the call action.
+            return _call.Invoke()
+           .ContinueWith(x =>
+           {
+               _free.Invoke();
+               return x.Result;
+           });
+        }
+           
 
         /// <summary>
         /// Call to the abort delegate 

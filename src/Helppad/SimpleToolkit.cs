@@ -21,12 +21,12 @@ namespace Helppad
     public static class SimpleToolkit
     {
         /// <summary>
-        /// Random shared insatnce
+        /// Random shared insatnce.
         /// </summary>
         static public Random SharedRandom { get; } = new Random();
 
         /// <summary>
-        /// The hexdecimal char set
+        /// The hexdecimal char set.
         /// </summary>
         static public char[] HexChars { get; } = new char[] { 
             'a', 'b', 'c', 'd', 'e', 'f',
@@ -36,7 +36,7 @@ namespace Helppad
 
         /// <summary>
         /// Create instance from passed type and arguments.
-        /// Using the reflection method to build a instance of any type
+        /// Using the reflection method to build a instance of any type.
         /// </summary>
         /// <typeparam name="T">The target type to use.</typeparam>
         /// <param name="entries"></param>
@@ -53,7 +53,7 @@ namespace Helppad
 
         /// <summary>
         ///  Try create instance from passed type and arguments.
-        ///  Using the reflection method to build a instance of any type
+        ///  Using the reflection method to build a instance of any type.
         /// </summary>
         /// <typeparam name="T">The target type to use.</typeparam>
         /// <param name="result"></param>
@@ -81,7 +81,7 @@ namespace Helppad
         /// <typeparam name="T">The target type to use.</typeparam>
         /// <param name="value"></param>
         /// <param name="fallback"></param>
-        /// <returns></returns>
+        /// <returns>The same value if not null or the value offer for fallback.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #nullable enable
         public static T FallbackValue<T>(T? value, Func<T> fallback)
@@ -241,7 +241,7 @@ namespace Helppad
         /// </summary>
         /// <typeparam name="T">The target type to use.</typeparam>
         /// <param name="action"></param>
-        public static void Catch<T>( CatchedAction<T> action)
+        public static void Catch<T>(CatchedAction<T> action)
             where T : Exception
         {
             try
@@ -699,4 +699,18 @@ namespace Helppad
             }
         }
     }
+
+    #region Enums
+
+    /// <summary>
+    /// Indicate the member seelctions
+    /// </summary>
+    public enum MemberSelection
+    {
+        Properties,
+        Field,
+        Both
+    }
+
+    #endregion
 }

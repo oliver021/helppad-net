@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace Helppad
@@ -15,10 +16,11 @@ namespace Helppad
         /// Throw the null reference exception <see cref="NullReferenceException"/> if passed
         /// argument is null and put the message
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         /// <exception cref="NullReferenceException"></exception>
-        public static void NotNull(object value, string text)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NotNull(object value, string text)
         {
             if (value is null)
             {
@@ -31,10 +33,11 @@ namespace Helppad
         /// argument is null and put the message.
         /// This is like <see cref="NotNull(object, string)"/> but throw the <see cref="ArgumentNullException"/>
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NotNullArgument(object value, string text = "")
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NotNullArgument(object value, string text = "")
         {
             if (value is null)
             {
@@ -44,11 +47,12 @@ namespace Helppad
 
         /// <summary>
         /// Throw the null reference exception <see cref="NullReferenceException"/> if passed
-        /// argument is null and put the message
+        /// argument is null and put the message.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        public static void NotNull<T>(object value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NotNull<T>(object value, string text)
         where T : Exception
         {
             if (value is null)
@@ -60,12 +64,13 @@ namespace Helppad
 
         /// <summary>
         /// Throw the n exception <see cref="Exception"/> if passed
-        /// argument is Nan and put the message
+        /// argument is Nan and put the message.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NotNan(double value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NotNan(double value, string text)
         {
             if (value is double.NaN)
             {
@@ -77,9 +82,10 @@ namespace Helppad
         /// Throw the n exception <see cref="Exception"/> if passed
         /// argument is Nan and put the message
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        public static void NotNan<T>(double value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NotNan<T>(double value, string text)
         where T : Exception
         {
             if (value is double.NaN)
@@ -93,10 +99,11 @@ namespace Helppad
         /// Throw the n exception <see cref="Exception"/> if passed
         /// argument is Nan and put the message
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NotNan(float value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NotNan(float value, string text)
         {
             if (value is float.NaN)
             {
@@ -108,9 +115,10 @@ namespace Helppad
         /// Throw the n exception <see cref="Exception"/> if passed
         /// argument is Nan and put the message
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        public static void NotNan<T>(float value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NotNan<T>(float value, string text)
         where T : Exception
         {
             if (value is float.NaN)
@@ -124,10 +132,11 @@ namespace Helppad
         /// Throw the null reference exception <see cref="NullReferenceException"/> if passed
         /// argument is null and put the message
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         /// <exception cref="NullReferenceException"></exception>
-        public static void NotIn(object value, IEnumerable<object> set, string text)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NotIn(object value, IEnumerable<object> set, string text)
         {
             if (set.Where(x => x.Equals(value)).Any())
             {
@@ -139,9 +148,10 @@ namespace Helppad
         /// Throw the null reference exception <see cref="NullReferenceException"/> if passed
         /// argument is null and put the message
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        public static void NotIn<T>(object value, IEnumerable<object> set, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NotIn<T>(object value, IEnumerable<object> set, string text)
         where T : Exception
         {
             if (set.Where(x => x.Equals(value)).Any())
@@ -155,10 +165,11 @@ namespace Helppad
         /// Throw the exception <see cref="Exception"/> if passed
         /// action return false
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void Success(Func<bool> action, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void Success(Func<bool> action, string text)
         {
             if (action.Invoke())
             {
@@ -170,9 +181,10 @@ namespace Helppad
         /// Throw the null reference exception <see cref="NullReferenceException"/> if passed
         /// argument is null and put the message
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        public static void Success<T>(Func<bool> action, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void Success<T>(Func<bool> action, string text)
         where T : Exception
         {
             if (action.Invoke())
@@ -186,10 +198,11 @@ namespace Helppad
         /// Throw the exception <see cref="Exception"/> if passed
         /// argument is false
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void ThrowIf(bool val, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void ThrowIf(bool val, string text)
         {
             if (val)
             {
@@ -198,12 +211,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw the null reference exception <see cref="NullReferenceException"/> if passed
+        /// Throw the null reference exception passed as argument type if passed
         /// argument is false
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        public static void ThrowIf<T>(bool val, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void ThrowIf<T>(bool val, string text)
         where T : Exception
         {
             if (val)
@@ -217,10 +231,11 @@ namespace Helppad
         /// Throw the an argument exception if passed
         /// argument that equal to compare and put the message
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="Exception"></exception>
-        public static void CheckArgument(bool condition, string text = "")
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="ArgumentException"></exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void CheckArgument(bool condition, string text = "")
         {
             if (condition)
             {
@@ -232,10 +247,11 @@ namespace Helppad
         /// Throw the an exception if passed
         /// argument that equal to compare and put the message
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="Exception"></exception>
-        public static void NotBe(object value, object compare, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NotBe(object value, object compare, string text)
         {
             if (value.Equals(compare))
             {
@@ -248,10 +264,11 @@ namespace Helppad
         /// argument that equal to compare and put the message
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="value"></param>
+        /// <param name="value">The target value to evaluate base on condition.</param>
         /// <param name="compare"></param>
-        /// <param name="text"></param>
-        public static void NotBe<T>(object value, object compare, string text)
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NotBe<T>(object value, object compare, string text)
         where T : Exception
         {
             if (value.Equals(compare))
@@ -265,10 +282,11 @@ namespace Helppad
         /// Throw the an exception if passed
         /// enumerable argument not pass the test
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="Exception"></exception>
-        public static void Are<T>(T[] value, Predicate<T> test, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void Are<T>(T[] value, Predicate<T> test, string text)
         {
             if (value.All(x => test.Invoke(x)) is false)
             {
@@ -277,12 +295,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonNegative(int value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonNegative(int value, string text)
         {
             if (value < 0)
             {
@@ -291,12 +310,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonNegative(decimal value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonNegative(decimal value, string text)
         {
             if (value < 0)
             {
@@ -305,12 +325,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonNegative(sbyte value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonNegative(sbyte value, string text)
         {
             if (value < 0)
             {
@@ -319,12 +340,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonNegative(short value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonNegative(short value, string text)
         {
             if (value < 0)
             {
@@ -333,12 +355,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonNegative(long value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonNegative(long value, string text)
         {
             if (value < 0)
             {
@@ -347,12 +370,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonNegative(float value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonNegative(float value, string text)
         {
             if (value < 0)
             {
@@ -362,12 +386,13 @@ namespace Helppad
 
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonNegative(double value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonNegative(double value, string text)
         {
             if (value < 0)
             {
@@ -376,12 +401,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonZero(int value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonZero(int value, string text)
         {
             if (value != 0)
             {
@@ -391,12 +417,13 @@ namespace Helppad
 
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonZero(uint value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonZero(uint value, string text)
         {
             if (value != 0)
             {
@@ -405,12 +432,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonZero(decimal value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonZero(decimal value, string text)
         {
             if (value != 0)
             {
@@ -419,12 +447,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonZero(sbyte value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonZero(sbyte value, string text)
         {
             if (value != 0)
             {
@@ -433,12 +462,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonZero(short value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonZero(short value, string text)
         {
             if (value != 0)
             {
@@ -447,12 +477,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonZero(byte value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonZero(byte value, string text)
         {
             if (value != 0)
             {
@@ -461,12 +492,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonZero(ushort value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonZero(ushort value, string text)
         {
             if (value != 0)
             {
@@ -475,12 +507,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonZero(ulong value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonZero(ulong value, string text)
         {
             if (value != 0)
             {
@@ -489,12 +522,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonZero(long value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonZero(long value, string text)
         {
             if (value != 0)
             {
@@ -503,12 +537,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonZero(float value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonZero(float value, string text)
         {
             if (value != 0)
             {
@@ -517,12 +552,13 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw an exception if the number is less then zero
+        /// Throw an exception if the number is less then zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="text"></param>
-        /// <exception cref="NullReferenceException"></exception>
-        public static void NonZero(double value, string text)
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void NonZero(double value, string text)
         {
             if (value != 0)
             {
@@ -531,11 +567,179 @@ namespace Helppad
         }
 
         /// <summary>
-        /// If the target is null, empty or white space only then the throw Exception 
+        /// Throw an exception if the number is less than or equal to zero.
+        /// </summary>
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShouldBePositive(int value, string text)
+        {
+            if (value > 0)
+            {
+                throw new Exception(text);
+            }
+        }
+
+
+        /// <summary>
+        /// Throw an exception if the number is less than or equal to zero.
+        /// </summary>
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShouldBePositive(uint value, string text)
+        {
+            if (value != 0)
+            {
+                throw new Exception(text);
+            }
+        }
+
+        /// <summary>
+        /// Throw an exception if the number is less than or equal to zero.
+        /// </summary>
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShouldBePositive(decimal value, string text)
+        {
+            if (value != 0)
+            {
+                throw new Exception(text);
+            }
+        }
+
+        /// <summary>
+        /// Throw an exception if the number is less than or equal to zero.
+        /// </summary>
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShouldBePositive(sbyte value, string text)
+        {
+            if (value != 0)
+            {
+                throw new Exception(text);
+            }
+        }
+
+        /// <summary>
+        /// Throw an exception if the number is less than or equal to zero.
+        /// </summary>
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShouldBePositive(short value, string text)
+        {
+            if (value != 0)
+            {
+                throw new Exception(text);
+            }
+        }
+
+        /// <summary>
+        /// Throw an exception if the number is less than or equal to zero.
+        /// </summary>
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShouldBePositive(byte value, string text)
+        {
+            if (value != 0)
+            {
+                throw new Exception(text);
+            }
+        }
+
+        /// <summary>
+        /// Throw an exception if the number is less than or equal to zero.
+        /// </summary>
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShouldBePositive(ushort value, string text)
+        {
+            if (value != 0)
+            {
+                throw new Exception(text);
+            }
+        }
+
+        /// <summary>
+        /// Throw an exception if the number is less than or equal to zero.
+        /// </summary>
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShouldBePositive(ulong value, string text)
+        {
+            if (value != 0)
+            {
+                throw new Exception(text);
+            }
+        }
+
+        /// <summary>
+        /// Throw an exception if the number is less than or equal to zero.
+        /// </summary>
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShouldBePositive(long value, string text)
+        {
+            if (value != 0)
+            {
+                throw new Exception(text);
+            }
+        }
+
+        /// <summary>
+        /// Throw an exception if the number is less than or equal to zero.
+        /// </summary>
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShouldBePositive(float value, string text)
+        {
+            if (value != 0)
+            {
+                throw new Exception(text);
+            }
+        }
+
+        /// <summary>
+        /// Throw an exception if the number is less than or equal to zero.
+        /// </summary>
+        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShouldBePositive(double value, string text)
+        {
+            if (value != 0)
+            {
+                throw new Exception(text);
+            }
+        }
+
+        /// <summary>
+        /// If the target is null, empty or white space only then the throw Exception.
         /// </summary>
         /// <param name="target"></param>
-        /// <param name="text"></param>
-        public static void RequireText(string target, string text)
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void RequireText(string target, string text)
         {
             if (string.IsNullOrEmpty(target) || target.All(c => char.IsWhiteSpace(c)))
             {
@@ -548,9 +752,10 @@ namespace Helppad
         /// the <see cref="FormatException"/>
         /// </summary>
         /// <param name="target"></param>
-        /// <param name="text"></param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         /// <exception cref="FormatException"></exception>
-        public static void RequireFormat(string target, string regexp, string text)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void RequireFormat(string target, string regexp, string text)
         {
             if (Regex.IsMatch(target, regexp) is false)
             {
@@ -563,9 +768,10 @@ namespace Helppad
         /// the <see cref="FormatException"/>
         /// </summary>
         /// <param name="target"></param>
-        /// <param name="text"></param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         /// <exception cref="FormatException"></exception>
-        public static void RequireFormat(string target, Regex regexp, string text)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void RequireFormat(string target, Regex regexp, string text)
         {
             if (regexp.IsMatch(target) is false)
             {
@@ -577,8 +783,10 @@ namespace Helppad
         /// Throw a exception if the datetime is zero or equivalent <see cref="DateTime.MinValue"/>
         /// </summary>
         /// <param name="date"></param>
-        /// <param name="text"></param>
-        public static void DatetimeNonZero(DateTime date, string text)
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void DatetimeNonZero(DateTime date, string text)
         {
             if (date.Equals(DateTime.MinValue))
             {
@@ -590,8 +798,10 @@ namespace Helppad
         /// Throw a exception if the datetime is zero or equivalent <see cref="TimeSpan.MinValue"/>
         /// </summary>
         /// <param name="date"></param>
-        /// <param name="text"></param>
-        public static void TimespanNonZero(TimeSpan date, string text)
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void TimespanNonZero(TimeSpan date, string text)
         {
             if (date.Equals(TimeSpan.MinValue))
             {
@@ -603,8 +813,10 @@ namespace Helppad
         /// Throw a exception of <see cref="ArgumentOutOfRangeException"/> when
         /// </summary>
         /// <param name="date"></param>
-        /// <param name="text"></param>
-        public static void RequireLength(Array arr, int length, string text)
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void RequireLength(Array arr, int length, string text)
         {
             if (arr.Length >= length)
             {
@@ -613,11 +825,44 @@ namespace Helppad
         }
 
         /// <summary>
+        /// Throw a exception of <see cref="ArgumentOutOfRangeException"/> when the enuemrable is empty.
+        /// </summary>
+        /// <param name="enumerable">The target enuemrable to check.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.The message to put in the exception.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void CheckEmpty(IEnumerable enumerable, string text)
+        {
+            if (enumerable.GetEnumerator().MoveNext() is false)
+            {
+                throw new ArgumentException(text);
+            }
+        }
+
+        /// <summary>
+        /// Throw a exception of <see cref="ArgumentOutOfRangeException"/> when the enuemrable is empty.
+        /// </summary>
+        /// <param name="enumerable">The target enuemrable to check.</param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.The message to put in the exception.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void CheckEmpty<TException>(IEnumerable enumerable, string text)
+            where TException: Exception
+        {
+            if (enumerable.GetEnumerator().MoveNext() is false)
+            {
+                throw (Exception)typeof(TException).GetConstructor(new[] { typeof(string) }).Invoke(new[] { text });
+            }
+        }
+
+        /// <summary>
         /// Throw a exception if the datetime is zero or equivalent <see cref="DateTime.MinValue"/>
         /// </summary>
         /// <param name="date"></param>
-        /// <param name="text"></param>
-        public static void DatetimeNonZero<T>(DateTime date, string text)
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void DatetimeNonZero<T>(DateTime date, string text)
             where T : Exception
         {
             if (date.Equals(DateTime.MinValue))
@@ -631,8 +876,9 @@ namespace Helppad
         /// Throw a exception if the datetime is zero or equivalent <see cref="DateTime.MinValue"/>
         /// </summary>
         /// <param name="date"></param>
-        /// <param name="text"></param>
-        public static void TimespanNonZero<T>(TimeSpan time, string text)
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void TimespanNonZero<T>(TimeSpan time, string text)
             where T : Exception
         {
             if (time.Equals(TimeSpan.MinValue))
@@ -646,8 +892,9 @@ namespace Helppad
         /// Throw a exception if the datetime is zero or equivalent <see cref="DateTime.MinValue"/>
         /// </summary>
         /// <param name="date"></param>
-        /// <param name="text"></param>
-        public static void RequireLength<T>(Array arr, int length, string text)
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void RequireLength<T>(Array arr, int length, string text)
             where T : Exception
         {
             if (arr.Length >= length)

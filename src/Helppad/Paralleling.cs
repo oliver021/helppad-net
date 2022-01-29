@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading;
@@ -31,42 +32,93 @@ namespace Helppad
     public static partial class Paralleling
     {
         #region FORLOOP
+
         /// <summary>
-        /// For loop async to do parallel work
+        /// For loop async to do parallel work.
         /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="task"></param>
-        /// <returns></returns>
+        /// <param name="start">The initial number to start.</param>
+        /// <param name="end">The final number to end.</param>
+        /// <param name="task">The action to execute in every iteration.</param>
+        /// <returns>Return a task that complete when the loop is finished.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task ForAsync(int start, int end, Action<int> task)
         {
             // the validation
             Review.ThrowIf(start == end, "The start and end should not be equal");
             Review.ThrowIf(start > end, "The range is incorrect");
 
-            var execution = new List<Task>(capacity: end - start);
+            var execution = 0;
+
+            var src = new TaskCompletionSource<int>();
+
             // for parallel
             for (int i = start; i < end; i++)
             {
-                var src = new TaskCompletionSource<int>();
-                execution.Add(src.Task);
-                ThreadPool.QueueUserWorkItem(delegate {
+                ThreadPool.QueueUserWorkItem(delegate 
+                {
                     task.Invoke(i);
-                    src.SetResult(0);
+
+                    var result = Interlocked.Increment(ref execution);
+
+                    if (result == end)
+                    {
+                        _ = src.TrySetResult(0);
+                    }
                 });
             }
 
             // for all
-            return Task.WhenAll(execution);
+            return src.Task;
         }
 
         /// <summary>
-        /// For loop async to do parallel work
+        /// For loop async to do parallel work.
         /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="task"></param>
+        /// <param name="start">The initial number to start.</param>
+        /// <param name="end">The final number to end.</param>
+        /// <param name="step">The step number to increment.</param>
+        /// <param name="task">The action to execute in every iteration.</param>
+        /// <returns>Return a task that complete when the loop is finished.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Task ForAsync(int start, int end, int step, Action<int> task)
+        {
+            // the validation
+            Review.ThrowIf(start == end, "The start and end should not be equal");
+            Review.ThrowIf(start > end, "The range is incorrect");
+            Review.ShouldBePositive(step, "The argument step should not be less or equal zero");
+
+            var execution = 0;
+
+            var src = new TaskCompletionSource<int>();
+
+            // for parallel
+            for (int i = start; i < end; i += 1)
+            {
+                ThreadPool.QueueUserWorkItem(delegate
+                {
+                    task.Invoke(i);
+
+                    var result = Interlocked.Increment(ref execution);
+
+                    if (result == end)
+                    {
+                        _ = src.TrySetResult(0);
+                    }
+                });
+            }
+
+            // for all
+            return src.Task;
+        }
+
+        /// <summary>
+        /// For loop async to do parallel work.
+        /// </summary>
+        /// <param name="start">The initial number to start.</param>
+        /// <param name="end">The final number to end.</param>
+        /// <param name="task">The action to execute in every iteration.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task ForAsync(int start, int end, Func<int, Task> task)
         {
             // the validation
@@ -74,6 +126,7 @@ namespace Helppad
             Review.ThrowIf(start > end, "The range is incorrect");
 
             var execution = new List<Task>(capacity: end - start);
+
             // for parallel
             for (int i = start; i < end; i++)
             {
@@ -85,29 +138,27 @@ namespace Helppad
         }
 
         /// <summary>
-        /// For loop async to do parallel work
-        /// Use cancellation token for binding the invoke method with cancellation request
+        /// For loop async to do parallel work.
         /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="task"></param>
+        /// <param name="start">The initial number to start.</param>
+        /// <param name="end">The final number to end.</param>
+        /// <param name="step">The step number to increment.</param>
+        /// <param name="task">The action to execute in every iteration.</param>
         /// <returns></returns>
-        public static Task ForAsync(int start, int end, Action<int, CancellationToken> task, CancellationToken cancellation)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Task ForAsync(int start, int end, int step, Func<int, Task> task)
         {
             // the validation
             Review.ThrowIf(start == end, "The start and end should not be equal");
             Review.ThrowIf(start > end, "The range is incorrect");
+            Review.ShouldBePositive(step, "The argument step should not be less or equal zero");
 
             var execution = new List<Task>(capacity: end - start);
+
             // for parallel
-            for (int i = start; i < end; i++)
+            for (int i = start; i < end; i += step)
             {
-                var src = new TaskCompletionSource<int>();
-                execution.Add(src.Task);
-                ThreadPool.QueueUserWorkItem(delegate {
-                    task.Invoke(i, cancellation);
-                    src.SetResult(0);
-                });
+                execution.Add(task.Invoke(i));
             }
 
             // for all
@@ -118,10 +169,88 @@ namespace Helppad
         /// For loop async to do parallel work
         /// Use cancellation token for binding the invoke method with cancellation request
         /// </summary>
+        /// <param name="start">The initial number to start.</param>
+        /// <param name="end">The final number to end.</param>
+        /// <param name="task">The action to execute in every iteration.</param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Task ForAsync(int start, int end, Action<int, CancellationToken> task, CancellationToken cancellation)
+        {
+            // the validation
+            Review.ThrowIf(start == end, "The start and end should not be equal");
+            Review.ThrowIf(start > end, "The range is incorrect");
+
+            var execution = 0;
+            var src = new TaskCompletionSource<int>();
+
+            // for parallel
+            for (int i = start; i < end; i++)
+            {
+                ThreadPool.QueueUserWorkItem(delegate 
+                {
+                    task.Invoke(i, cancellation);
+                    var result = Interlocked.Increment(ref execution);
+
+                    if (result == end)
+                    {
+                        _ = src.TrySetResult(0);
+                    }
+                });
+            }
+
+            // for all
+            return src.Task;
+        }
+
+        /// <summary>
+        /// For loop async to do parallel work.
+        /// Use cancellation token for binding the invoke method with cancellation request.
+        /// </summary>
+        /// <param name="start">The initial number to start.</param>
+        /// <param name="end">The final number to end.</param>
+        /// <param name="step">The step number to increment.</param>
+        /// <param name="task">The action to execute in every iteration.</param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Task ForAsync(int start, int end, int step, Action<int, CancellationToken> task, CancellationToken cancellation)
+        {
+            // the validation
+            Review.ThrowIf(start == end, "The start and end should not be equal");
+            Review.ThrowIf(start > end, "The range is incorrect");
+            Review.ShouldBePositive(step, "The argument step should not be less or equal zero");
+
+            var execution = 0;
+            var src = new TaskCompletionSource<int>();
+
+            // for parallel
+            for (int i = start; i < end; i++)
+            {
+                ThreadPool.QueueUserWorkItem(delegate
+                {
+                    task.Invoke(i, cancellation);
+
+                    var result = Interlocked.Increment(ref execution);
+
+                    if (result == end)
+                    {
+                        _ = src.TrySetResult(0);
+                    }
+                });
+            }
+
+            // for all
+            return src.Task;
+        }
+
+        /// <summary>
+        /// For loop async to do parallel work
+        /// Use cancellation token for binding the invoke method with cancellation request
+        /// </summary>
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <param name="task"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task ForAsync(int start, int end, Func<int, CancellationToken, Task> task, CancellationToken cancellation)
         {
             // the validation
@@ -129,6 +258,7 @@ namespace Helppad
             Review.ThrowIf(start > end, "The range is incorrect");
 
             var execution = new List<Task>(capacity: end - start);
+
             // for parallel
             for (int i = start; i < end; i++)
             {
@@ -138,19 +268,22 @@ namespace Helppad
             // for all
             return Task.WhenAll(execution);
         }
+
         #endregion
 
         #region ANOTHERLOOPS
 
         /// <summary>
-        /// For loop async for each item
+        /// For loop async for each item.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="target"></param>
         /// <param name="action"> The action to execute.</param>
         /// <param name="cancellation"></param>
         /// <returns></returns>
-        public static Task ForeachAsync<T>(IEnumerable<T> target, Action<T, CancellationToken> action, CancellationToken cancellation = default)
+        public static Task ForeachAsync<T>(IEnumerable<T> target,
+                                           Action<T, CancellationToken> action,
+                                           CancellationToken cancellation = default)
         {
             // check not null arguments
             Review.NotNull(target, "The arguemnt \"target\" is null");
@@ -170,6 +303,7 @@ namespace Helppad
             target.AsParallel()
                 .WithCancellation(cancellation)
                 .WithExecutionMode(ParallelExecutionMode.ForceParallelism)
+                // using parallel execution
                 .ForAll(x => 
                 {
                     action.Invoke(x, cancellation);
@@ -190,10 +324,11 @@ namespace Helppad
         /// <summary>
         /// Create infinite loop until is stoping is requested by user.
         /// Use return boolean value to continue execute the loop
-        /// or use <see cref="CompletationHandler"/> to stop the loop
+        /// or use <see cref="CompletationHandler"/> to stop the loop.
         /// </summary>
         /// <param name="action"> The action to execute.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CompletationHandler LoopAsync(Func<bool> action)
         {
             var cancellation = new CancellationTokenSource();
@@ -213,6 +348,7 @@ namespace Helppad
         /// </summary>
         /// <param name="action"> The action to execute.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CompletationHandler LoopAsync(Func<CancellationToken,bool> action)
         {
             var cancellation = new CancellationTokenSource();
@@ -232,6 +368,7 @@ namespace Helppad
         /// </summary>
         /// <param name="action"> The action to execute.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CompletationHandler LoopAsync(Func<CancellationToken, Task<bool>> action)
         {
             var cancellation = new CancellationTokenSource();
@@ -252,6 +389,7 @@ namespace Helppad
         /// </summary>
         /// <param name="ms">The milliseconds unit to set the time.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CancellationToken WithGraceful(int ms)
         {
             var src = new CancellationTokenSource(ms);
@@ -267,6 +405,7 @@ namespace Helppad
         /// </summary>
         /// <param name="ms">The milliseconds unit to set the time.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CancellationToken WithCancellationRequest(Func<bool> func)
         {
             Review.NotNull(func, "The \"func\" should be defined");
@@ -292,6 +431,7 @@ namespace Helppad
         /// <param name="ms">The milliseconds unit to set the time.</param>
         /// <param name="func"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task ExecuteInGraceful(int ms, Func<CancellationToken, Task> func)
         {
             Review.NotNull(func, "The func should be defined");
@@ -374,6 +514,7 @@ namespace Helppad
         /// <param name="action"> The action to execute.</param>
         /// <param name="ms">The milliseconds unit to set the time.</param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CompletationHandler DelayedAction(Action action, int ms)
         {
             Review.NotNullArgument(action, "The action is required and not null");
@@ -386,6 +527,7 @@ namespace Helppad
         /// Waits for the task to complete and silent any exceptions.
         /// </summary>
         /// <param name="task"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void WaitAndSilentException(Task task, CancellationToken cancellation)
         {
             Review.NotNull(task, "The task is null");
@@ -404,6 +546,7 @@ namespace Helppad
         /// Waits for the task to complete and silent any exceptions but return it.
         /// </summary>
         /// <param name="task"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #nullable enable
         public static AggregateException? WaitAndReturnException(Task task, CancellationToken cancellation)
 #nullable disable
@@ -830,14 +973,14 @@ namespace Helppad
         ///     - The transform function.
         /// </summary>
         /// <remarks>
-        ///     Use if the transform function is very complex or CPU base work
+        ///     Use if the transform function is very complex or CPU work
         ///     otherwise this method using is not recommended.
         /// </remarks>
         /// <typeparam name="T">The from argument type.</typeparam>
         /// <typeparam name="K">The final type to post. </typeparam>
         /// <param name="elements">The enuemrable elements.</param>
         /// <param name="transform">The transformation function.</param>
-        /// <param name="cancellation">Token that registered cancellation request.</param>
+        /// <param name="cancellation">Token that registered as cancellation request.</param>
         /// <returns>A feedback process to recive multiple element from enuemration.</returns>
         public static FeedBack<K> PostAll<T, K>(IEnumerable<T> elements,
                                                 Func<T, K> transform,
@@ -845,21 +988,21 @@ namespace Helppad
         {
             // checks arguments
             Review.NotNullArgument(elements);
-            Review.NotNullArgument(cancellation);
+            Review.NotNullArgument(transform);
 
             // check token
             cancellation.ThrowIfCancellationRequested();
 
             // feedback from IEnuemrable parallel
-            return FeedBack.CreateFeedback<K>(push => {
+            return FeedBack.CreateFeedback<K>(push => 
+            {
                 // run in background 
                 return Task.Run(delegate {
                     elements.AsParallel()
                         .WithCancellation(cancellation)
-                        .WithExecutionMode(ParallelExecutionMode.ForceParallelism)
                         .Select(x => transform(x))
-                        .ForAll(r => push(r).Wait(cancellation));
-                });
+                        .ForAll(async r => await push(r));
+                }, cancellationToken: cancellation);
             });
         }
 
@@ -1256,6 +1399,31 @@ namespace Helppad
         public static ListenerProcess<T> CreateProcess<T>(int paraellism, Func<T, CancellationToken, Task> funcAsync)
         {
             return new ListenerProcess<T>(paraellism, funcAsync);
+        }
+
+        #endregion
+
+        #region ExtraEnums
+
+        /// <summary>
+        /// The stataegy task to implement a task in background
+        /// </summary>
+        public enum StrategyTask
+        {
+            /// <summary>
+            /// Put in the current thread.
+            /// </summary>
+            Lineal,
+
+            /// <summary>
+            ///  Put in the thread pool <see cref="System.Threading.ThreadPool"/> by queue.
+            /// </summary>
+            ThreadPool,
+
+            /// <summary>
+            ///  Put in the single background thread.
+            /// </summary>
+            Standalone
         }
 
         #endregion

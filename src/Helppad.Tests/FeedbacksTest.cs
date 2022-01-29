@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.Threading.Tasks;
 
 namespace Helppad.Tests
@@ -32,6 +33,34 @@ namespace Helppad.Tests
             Assert.AreEqual(arr[0], 11);
             Assert.AreEqual(arr[1], 12);
             Assert.AreEqual(arr[2], 9);
+        }
+
+        [Test]
+        public async Task TestParellelHelper()
+        {
+            string[] arr = new[] { 
+                "data",
+                "take",
+                "basic",
+                "system",
+                "n",
+                "key",
+                "data support",
+            };
+
+            var feedback = Paralleling.PostAll(arr, x => x.Length);
+
+            // show results
+            while (true)
+            {
+                var d = await feedback.NextAsync();
+                Console.WriteLine(d);
+
+                if (feedback.Finished)
+                {
+                    break;
+                }
+            }
         }
     }
 }
