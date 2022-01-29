@@ -274,6 +274,67 @@ namespace Helppad
         #region ANOTHERLOOPS
 
         /// <summary>
+        /// Wait until to the token has notification of the requested cancellation.
+        /// Warning if the token has not a lifecycle when the cancellation request is not emit
+        /// then it has a deadlock forever.
+        /// </summary>
+        /// <param name="cancellation">The target cancellation token.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void UntilCancellationRequested(CancellationToken cancellation)
+        {
+            while (true)
+            {
+                if (cancellation.IsCancellationRequested)
+                {
+                    break;
+                }
+                // do nothing, just wait
+            }
+        }
+
+        /// <summary>
+        /// Execute an action until to the token has notification of the requested cancellation.
+        /// Warning if the token has not a lifecycle when the cancellation request is not emit
+        /// then it has a deadlock forever.
+        /// </summary>
+        /// <param name="action">The target cancellation action to execute it.</param>
+        /// <param name="cancellation">The target cancellation token.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ExecuteWhileNotCancelled(Action action, CancellationToken cancellation)
+        {
+            while (true)
+            {
+                if (cancellation.IsCancellationRequested)
+                {
+                    break;
+                }
+
+                action.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Execute an action until to the token has notification of the requested cancellation.
+        /// Warning if the token has not a lifecycle when the cancellation request is not emit
+        /// then it has a deadlock forever.
+        /// This override is an async way method.
+        /// </summary>
+        /// <param name="action">The target cancellation action to execute it.</param>
+        /// <param name="cancellation">The target cancellation token.</param>
+        public static async Task ExecuteWhileNotCancelled(Func<CancellationToken, Task> action, CancellationToken cancellation)
+        {
+            while (true)
+            {
+                if (cancellation.IsCancellationRequested)
+                {
+                    break;
+                }
+
+                await action.Invoke(cancellation);
+            }
+        }
+
+        /// <summary>
         /// For loop async for each item.
         /// </summary>
         /// <typeparam name="T"></typeparam>
