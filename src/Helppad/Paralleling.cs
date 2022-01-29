@@ -445,6 +445,7 @@ namespace Helppad
         #endregion
 
         #region Helpers
+
         /// <summary>
         /// Create a cancellation token auto request in passed ms time.
         /// </summary>
@@ -581,6 +582,8 @@ namespace Helppad
             Review.NotNullArgument(action, "The action is required and not null");
             var cts = new CancellationTokenSource();
             var process = Task.Delay(ms, cts.Token).ContinueWith(t=> action.Invoke());
+
+            // use complete handler
             return new CompletationHandler(process, cts);
         }
 
@@ -1013,6 +1016,8 @@ namespace Helppad
             return src.Task;
 
             // make the timer callback to register
+            // use the state by unbox convesion from the 
+            // register state
             static WaitOrTimerCallback WaitCallback(WaitHandle current)
             {
                 return (object state, bool timedOut) =>
@@ -1070,6 +1075,7 @@ namespace Helppad
         #endregion
 
         #region Intervals
+
         /// <summary>
         /// Create an interval process from a method definition and interval parameters.
         /// </summary>
