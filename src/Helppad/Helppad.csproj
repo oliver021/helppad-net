@@ -1,9 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <!--<TargetFrameworks>netstandard1.3;netstandard2.0;netstandard2.1</TargetFrameworks>-->
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>9.0</LangVersion>
-
+    <AssemblyName>Helppad.Linq</AssemblyName>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <BuildInParallel>false</BuildInParallel>
+    <DebugType>portable</DebugType>
+    <OutputType>Library</OutputType>
+    
     <PackageId>Helppad</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageVersion>1.2.1</PackageVersion>
@@ -16,6 +22,11 @@
     
     <PackageProjectUrl>https://github.com/oliver021/helppad-net</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <PathMap>$(MSBuildProjectDirectory)=/</PathMap>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>

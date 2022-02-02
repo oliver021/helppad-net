@@ -44,6 +44,7 @@ namespace Helppad
         /// The passed algorithm to hash the entry data
         /// </summary>
         /// <param name="src"></param>
+        /// <param name="algorithm"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
         public static string GetHash(string src, HashAlgorithm algorithm, Encoding encoding = null)
@@ -60,7 +61,7 @@ namespace Helppad
         /// The passed algorithm to hash the entry data
         /// </summary>
         /// <param name="src"></param>
-        /// <param name="encoding"></param>
+        /// <param name="algorithm"></param>
         /// <returns></returns>
         public static string GetHash(byte[] src, HashAlgorithm algorithm)
         {
@@ -74,7 +75,7 @@ namespace Helppad
         /// The sha256 algorithm to hash the entry data
         /// </summary>
         /// <param name="src"></param>
-        /// <param name="encoding"></param>
+        /// <param name="alg"></param>
         /// <returns></returns>
         public static string Sha256(byte[] src, SHA256 alg = null)
         {
@@ -91,7 +92,7 @@ namespace Helppad
         /// The sha348 algorithm to hash the entry data
         /// </summary>
         /// <param name="src"></param>
-        /// <param name="encoding"></param>
+        /// <param name="alg"></param>
         /// <returns></returns>
         public static string Sha238(byte[] src, SHA384 alg = null)
         {
@@ -108,7 +109,7 @@ namespace Helppad
         /// The sha512 algorithm to hash the entry data
         /// </summary>
         /// <param name="src"></param>
-        /// <param name="encoding"></param>
+        /// <param name="alg"></param>
         /// <returns></returns>
         public static string Sha512(byte[] src, SHA512 alg = null)
         {
@@ -125,7 +126,7 @@ namespace Helppad
         /// The sha1 algorithm to hash the entry data
         /// </summary>
         /// <param name="src"></param>
-        /// <param name="encoding"></param>
+        /// <param name="alg"></param>
         /// <returns></returns>
         public static string Sha1(byte[] src, SHA1 alg = null)
         {
@@ -143,6 +144,7 @@ namespace Helppad
         /// </summary>
         /// <param name="src"></param>
         /// <param name="encoding"></param>
+        /// <param name="alg"></param>
         /// <returns></returns>
         public static string Sha256(string src, Encoding encoding = null, SHA256 alg = null)
         {
@@ -163,6 +165,7 @@ namespace Helppad
         /// </summary>
         /// <param name="src"></param>
         /// <param name="encoding"></param>
+        /// <param name="alg"></param>
         /// <returns></returns>
         public static string Sha348(string src, Encoding encoding = null, SHA384 alg = null)
         {
@@ -183,6 +186,7 @@ namespace Helppad
         /// </summary>
         /// <param name="src"></param>
         /// <param name="encoding"></param>
+        /// <param name="alg"></param>
         /// <returns></returns>
         public static string Sha512(string src, Encoding encoding = null, SHA512 alg = null)
         {
@@ -203,6 +207,7 @@ namespace Helppad
         /// </summary>
         /// <param name="src"></param>
         /// <param name="encoding"></param>
+        /// <param name="alg"></param>
         /// <returns></returns>
         public static string Sha1(string src, Encoding encoding = null, SHA1 alg = null)
         {
@@ -223,6 +228,7 @@ namespace Helppad
         /// </summary>
         /// <param name="src"></param>
         /// <param name="encoding"></param>
+        /// <param name="alg"></param>
         /// <returns></returns>
         public static string MD5(string src, Encoding encoding = null, MD5 alg = null)
         {

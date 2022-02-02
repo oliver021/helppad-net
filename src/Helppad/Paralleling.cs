@@ -172,6 +172,7 @@ namespace Helppad
         /// <param name="start">The initial number to start.</param>
         /// <param name="end">The final number to end.</param>
         /// <param name="task">The action to execute in every iteration.</param>
+        /// <param name="cancellation">The token to recive cancellation request.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task ForAsync(int start, int end, Action<int, CancellationToken> task, CancellationToken cancellation)
@@ -209,7 +210,8 @@ namespace Helppad
         /// <param name="start">The initial number to start.</param>
         /// <param name="end">The final number to end.</param>
         /// <param name="step">The step number to increment.</param>
-        /// <param name="task">The action to execute in every iteration.</param>
+        /// <param name="task">The task to excute it.</param>
+        /// <param name="cancellation">The token to recive cancellation request.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task ForAsync(int start, int end, int step, Action<int, CancellationToken> task, CancellationToken cancellation)
@@ -249,6 +251,7 @@ namespace Helppad
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <param name="task"></param>
+        /// <param name="cancellation">The token to recive cancellation request.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task ForAsync(int start, int end, Func<int, CancellationToken, Task> task, CancellationToken cancellation)
@@ -465,8 +468,8 @@ namespace Helppad
         /// <summary>
         /// Create a cancellation with rule by function.
         /// </summary>
-        /// <param name="ms">The milliseconds unit to set the time.</param>
-        /// <returns></returns>
+        /// <param name="func">The function that determinate when is cancelled.</param>
+        /// <returns>A cancellation token that recive a request when the passed function is return.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CancellationToken WithCancellationRequest(Func<bool> func)
         {
@@ -591,6 +594,7 @@ namespace Helppad
         /// Waits for the task to complete and silent any exceptions.
         /// </summary>
         /// <param name="task"></param>
+        /// <param name="cancellation">The token to recive cancellation request.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void WaitAndSilentException(Task task, CancellationToken cancellation)
         {
@@ -610,6 +614,7 @@ namespace Helppad
         /// Waits for the task to complete and silent any exceptions but return it.
         /// </summary>
         /// <param name="task"></param>
+        /// <param name="cancellation">The token to recive cancellation request.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #nullable enable
         public static AggregateException? WaitAndReturnException(Task task, CancellationToken cancellation)
@@ -637,7 +642,7 @@ namespace Helppad
         {
             var src = new TaskCompletionSource<int>();
 
-            /// export the task and handler to complete
+            // export the task and handler to complete
             return (src.Task, delegate
             {
                     src.SetResult(0);
@@ -653,7 +658,7 @@ namespace Helppad
         {
             var src = new TaskCompletionSource<T>();
 
-            /// export the task and handler to complete
+            // export the task and handler to complete
             return (src.Task, x =>
             {
                 if (x is Exception err)

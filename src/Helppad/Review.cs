@@ -133,6 +133,7 @@ namespace Helppad
         /// argument is null and put the message
         /// </summary>
         /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="set">The basic set.</param>
         /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         /// <exception cref="NullReferenceException"></exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -149,6 +150,7 @@ namespace Helppad
         /// argument is null and put the message
         /// </summary>
         /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="set">The basic set.</param>
         /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void NotIn<T>(object value, IEnumerable<object> set, string text)
@@ -165,7 +167,7 @@ namespace Helppad
         /// Throw the exception <see cref="Exception"/> if passed
         /// action return false
         /// </summary>
-        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="action"></param>
         /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -181,7 +183,7 @@ namespace Helppad
         /// Throw the null reference exception <see cref="NullReferenceException"/> if passed
         /// argument is null and put the message
         /// </summary>
-        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="action"></param>
         /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void Success<T>(Func<bool> action, string text)
@@ -202,9 +204,9 @@ namespace Helppad
         /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void ThrowIf(bool val, string text)
+		public static void ThrowIf(bool value, string text)
         {
-            if (val)
+            if (value)
             {
                 throw new Exception(text);
             }
@@ -217,10 +219,10 @@ namespace Helppad
         /// <param name="value">The target value to evaluate base on condition.</param>
         /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void ThrowIf<T>(bool val, string text)
+		public static void ThrowIf<T>(bool value, string text)
         where T : Exception
         {
-            if (val)
+            if (value)
             {
                 // create instance
                 throw (Exception)typeof(T).GetConstructor(new[] { typeof(string) }).Invoke(new[] { text });
@@ -231,7 +233,7 @@ namespace Helppad
         /// Throw the an argument exception if passed
         /// argument that equal to compare and put the message
         /// </summary>
-        /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="condition">Condition that should be true.</param>
         /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         /// <exception cref="ArgumentException"></exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -248,6 +250,7 @@ namespace Helppad
         /// argument that equal to compare and put the message
         /// </summary>
         /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="compare">The target value to compare.</param>
         /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -265,7 +268,7 @@ namespace Helppad
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value">The target value to evaluate base on condition.</param>
-        /// <param name="compare"></param>
+        /// <param name="compare">The target value to compare.</param>
         /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void NotBe<T>(object value, object compare, string text)
@@ -283,6 +286,7 @@ namespace Helppad
         /// enumerable argument not pass the test
         /// </summary>
         /// <param name="value">The target value to evaluate base on condition.</param>
+        /// <param name="test">The target test to evaluate base on condition.</param>
         /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -752,12 +756,13 @@ namespace Helppad
         /// the <see cref="FormatException"/>
         /// </summary>
         /// <param name="target"></param>
+        /// <param name="regex"></param>
         /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         /// <exception cref="FormatException"></exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void RequireFormat(string target, string regexp, string text)
+		public static void RequireFormat(string target, string regex, string text)
         {
-            if (Regex.IsMatch(target, regexp) is false)
+            if (Regex.IsMatch(target, regex) is false)
             {
                 throw new FormatException(text);
             }
@@ -768,12 +773,13 @@ namespace Helppad
         /// the <see cref="FormatException"/>
         /// </summary>
         /// <param name="target"></param>
+        /// <param name="regex"></param>
         /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         /// <exception cref="FormatException"></exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void RequireFormat(string target, Regex regexp, string text)
+		public static void RequireFormat(string target, Regex regex, string text)
         {
-            if (regexp.IsMatch(target) is false)
+            if (regex.IsMatch(target) is false)
             {
                 throw new FormatException(text);
             }
@@ -812,7 +818,8 @@ namespace Helppad
         /// <summary>
         /// Throw a exception of <see cref="ArgumentOutOfRangeException"/> when
         /// </summary>
-        /// <param name="date"></param>
+        /// <param name="arr"></param>
+        /// <param name="length"></param>
         /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -875,7 +882,7 @@ namespace Helppad
         /// <summary>
         /// Throw a exception if the datetime is zero or equivalent <see cref="DateTime.MinValue"/>
         /// </summary>
-        /// <param name="date"></param>
+        /// <param name="time"></param>
         /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void TimespanNonZero<T>(TimeSpan time, string text)
@@ -891,7 +898,8 @@ namespace Helppad
         /// <summary>
         /// Throw a exception if the datetime is zero or equivalent <see cref="DateTime.MinValue"/>
         /// </summary>
-        /// <param name="date"></param>
+        /// <param name="arr"></param>
+        /// <param name="length"></param>
         /// <param name="text">The text to put in the exception in case it should be thrown.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void RequireLength<T>(Array arr, int length, string text)

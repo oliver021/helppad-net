@@ -11,13 +11,6 @@ namespace Helppad
     /// </summary>
     public static class DateToolkit
     {
-        public static bool IsLastDayOfMonth(CultureInfo culture = null)
-        {
-            var now = DateTime.Now.Day;
-            SimpleToolkit.FallbackValue(culture, () => CultureInfo.CurrentCulture);
-            return default;
-        }
-
         /// <summary>
         /// Get week number in the Year
         /// </summary>
@@ -40,9 +33,9 @@ namespace Helppad
         /// <param name="dateTime">The target date time for calculate.</param>
         /// <param name="weekDetection">If is true then the method make a disction between week and days.</param>
         /// <returns>A struct with count and category unit type.</returns>
-        public static DateDisstance Ago(DateTime dateTime, bool weekDetection = true)
+        public static DateDistance Ago(DateTime dateTime, bool weekDetection = true)
         {
-            DateDisstance disstance;
+            DateDistance disstance;
 
             // sbtract the datetime
             var timeSpan = DateTime.Now.Subtract(dateTime);
@@ -50,32 +43,32 @@ namespace Helppad
             // calculate for differents cases
             if (timeSpan <= TimeSpan.FromSeconds(60))
             {
-                disstance = new DateDisstance(timeSpan.Seconds, DateUnits.LessMinute);
+                disstance = new DateDistance(timeSpan.Seconds, DateUnits.LessMinute);
             }
             else if (timeSpan <= TimeSpan.FromMinutes(60))
             {
-                disstance = new DateDisstance(timeSpan.Minutes, DateUnits.Minute);
+                disstance = new DateDistance(timeSpan.Minutes, DateUnits.Minute);
             }
             else if (timeSpan <= TimeSpan.FromHours(24))
             {
-                disstance = new DateDisstance(timeSpan.Hours, DateUnits.Hour);
+                disstance = new DateDistance(timeSpan.Hours, DateUnits.Hour);
             }
             else if (timeSpan <= TimeSpan.FromDays(7) && weekDetection)
             {
-                disstance = new DateDisstance(timeSpan.Days, DateUnits.Day);
+                disstance = new DateDistance(timeSpan.Days, DateUnits.Day);
             }
             else if (timeSpan <= TimeSpan.FromDays(30))
             {
-                disstance = (weekDetection) ? new DateDisstance(timeSpan.Days / 7, DateUnits.Week)
-                    : new DateDisstance(timeSpan.Days, DateUnits.Day );
+                disstance = (weekDetection) ? new DateDistance(timeSpan.Days / 7, DateUnits.Week)
+                    : new DateDistance(timeSpan.Days, DateUnits.Day );
             }
             else if (timeSpan <= TimeSpan.FromDays(365))
             {
-                disstance = new DateDisstance(timeSpan.Days / 30, DateUnits.Month);
+                disstance = new DateDistance(timeSpan.Days / 30, DateUnits.Month);
             }
             else
             {
-                disstance = new DateDisstance(timeSpan.Days / 365, DateUnits.Year);
+                disstance = new DateDistance(timeSpan.Days / 365, DateUnits.Year);
             }
 
             // return the final result
