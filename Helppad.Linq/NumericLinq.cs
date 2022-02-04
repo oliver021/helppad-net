@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Helppad.Linq
@@ -9,7 +10,7 @@ namespace Helppad.Linq
     public static class NumericLinq
     {
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -20,7 +21,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -31,7 +32,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -42,7 +43,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -53,7 +54,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -65,7 +66,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -77,7 +78,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -88,7 +89,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -99,7 +100,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -110,7 +111,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -121,7 +122,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -133,7 +134,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -145,7 +146,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -156,7 +157,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -167,7 +168,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -178,7 +179,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -189,7 +190,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -201,7 +202,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -213,7 +214,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -224,7 +225,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -235,7 +236,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -246,7 +247,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -257,7 +258,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -269,7 +270,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -281,7 +282,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -292,7 +293,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -303,7 +304,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -314,7 +315,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -325,7 +326,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -337,7 +338,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -349,7 +350,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -360,7 +361,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -371,7 +372,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -382,7 +383,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -393,7 +394,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -405,7 +406,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -417,7 +418,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -428,7 +429,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -439,7 +440,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -450,7 +451,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -461,7 +462,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -473,7 +474,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -485,7 +486,27 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the float value if is Nan value.
+        /// </summary>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static IEnumerable<float> WhereIsNan(this IEnumerable<float> enumerable)
+        {
+            return enumerable.Where(n => float.IsNaN(n));
+        }
+
+        /// <summary>
+        /// Filter the float value if is Infinite number.
+        /// </summary>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static IEnumerable<float> WhereIsInfinite(this IEnumerable<float> enumerable)
+        {
+            return enumerable.Where(n => float.IsInfinity(n));
+        }
+
+        /// <summary>
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -496,7 +517,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -507,7 +528,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -518,7 +539,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -529,7 +550,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -541,7 +562,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -553,7 +574,27 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the double value if is Nan value.
+        /// </summary>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static IEnumerable<double> WhereIsNan(this IEnumerable<double> enumerable)
+        {
+            return enumerable.Where(n => double.IsNaN(n));
+        }
+
+        /// <summary>
+        /// Filter the double value if is Infinite number.
+        /// </summary>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static IEnumerable<double> WhereIsInfinite(this IEnumerable<double> enumerable)
+        {
+            return enumerable.Where(n => double.IsInfinity(n));
+        }
+
+        /// <summary>
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -564,7 +605,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -575,7 +616,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -586,7 +627,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="target"> The target number that uses the operand.</param>
@@ -597,7 +638,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -609,7 +650,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Filter the numeric sequence enumerable by comparer operand. 
+        /// Filter the numeric sequence enumerable enumerable by comparer operand. 
         /// </summary>
         /// <param name="enumerable"> The target numeric that recive the operand filter.</param>
         /// <param name="start"> The target number that start the range.</param>
@@ -618,6 +659,216 @@ namespace Helppad.Linq
         public static IEnumerable<decimal> InOut(this IEnumerable<decimal> enumerable, decimal start, decimal end)
         {
             return enumerable.Where(n => n > end && n < start);
+        }
+
+        /// <summary>
+        /// Computes the median of a sequence enumerable of int values.
+        /// </summary>
+        /// <param name="source">A sequence enumerable of int values to calculate the median of.</param>
+        /// <returns>The median of the sequence enumerable of values.</returns>
+        public static double Median(this IEnumerable<int> source)
+        {
+            Review.NotNullArgument(source);
+
+            var sortedList = (from number in source
+                              orderby number
+                              select (double)number).ToList();
+
+            var count = sortedList.Count;
+            int itemIndex = count / 2;
+
+            if (count % 2 == 0)
+            {
+                // Even number of items.
+                return (sortedList[itemIndex] + sortedList[itemIndex - 1]) / (double)2;
+            }
+
+            // Odd number of items.
+            return sortedList[itemIndex];
+        }
+
+        /// <summary>
+        /// Computes the median of a sequence enumerable of int values that are obtained
+        /// by invoking a transform function on each element of the input sequence enumerable.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the elements of source.</typeparam>
+        /// <param name="source">A sequence enumerable of values to calculate the median of.</param>
+        /// <param name="selector">A transform function to apply to each element.</param>
+        /// <returns>The median of the sequence enumerable of values.</returns>
+        public static double Median<TSource>(this IEnumerable<TSource> source, Func<TSource, int> selector)
+        {
+            Review.NotNullArgument(source);
+            Review.NotNullArgument(selector);
+
+            return source.Select(selector).Median();
+        }
+
+        /// <summary>
+        /// Computes the median of a sequence enumerable of long values.
+        /// </summary>
+        /// <param name="source">A sequence enumerable of long values to calculate the median of.</param>
+        /// <returns>The median of the sequence enumerable of values.</returns>
+        public static double Median(this IEnumerable<long> source)
+        {
+            Review.NotNullArgument(source);
+
+            var sortedList = (from number in source
+                              orderby number
+                              select (double)number).ToList();
+
+            var count = sortedList.Count;
+            int itemIndex = count / 2;
+
+            if (count % 2 == 0)
+            {
+                // Even number of items.
+                return (sortedList[itemIndex] + sortedList[itemIndex - 1]) / 2;
+            }
+
+            // Odd number of items.
+            return sortedList[itemIndex];
+        }
+
+        /// <summary>
+        /// Computes the median of a sequence enumerable of long values that are obtained
+        /// by invoking a transform function on each element of the input sequence enumerable.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the elements of source.</typeparam>
+        /// <param name="source">A sequence enumerable of values to calculate the median of.</param>
+        /// <param name="selector">A transform function to apply to each element.</param>
+        /// <returns>The median of the sequence enumerable of values.</returns>
+        public static double Median<TSource>(this IEnumerable<TSource> source, Func<TSource, long> selector)
+        {
+            Review.NotNullArgument(source);
+            Review.NotNullArgument(selector);
+
+            return source.Select(selector).Median();
+        }
+
+        /// <summary>
+        /// Computes the median of a sequence enumerable of decimal values.
+        /// </summary>
+        /// <param name="source">A sequence enumerable of decimal values to calculate the median of.</param>
+        /// <returns>The median of the sequence enumerable of values.</returns>
+        public static decimal Median(this IEnumerable<decimal> source)
+        {
+            Review.NotNullArgument(source);
+
+            var sortedList = (from number in source
+                              orderby number
+                              select (decimal)number).ToList();
+
+            var count = sortedList.Count;
+            int itemIndex = count / 2;
+
+            if (count % 2 == 0)
+            {
+                // Even number of items.
+                return (sortedList[itemIndex] + sortedList[itemIndex - 1]) / (decimal)2;
+            }
+
+            // Odd number of items.
+            return sortedList[itemIndex];
+        }
+
+        /// <summary>
+        /// Computes the median of a sequence enumerable of decimal values that are obtained
+        /// by invoking a transform function on each element of the input sequence enumerable.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the elements of source.</typeparam>
+        /// <param name="source">A sequence enumerable of values to calculate the median of.</param>
+        /// <param name="selector">A transform function to apply to each element.</param>
+        /// <returns>The median of the sequence enumerable of values.</returns>
+        public static decimal Median<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal> selector)
+        {
+            Review.NotNullArgument(source);
+            Review.NotNullArgument(selector);
+
+            return source.Select(selector).Median();
+        }
+
+        /// <summary>
+        /// Computes the median of a sequence enumerable of float values.
+        /// </summary>
+        /// <param name="source">A sequence enumerable of float values to calculate the median of.</param>
+        /// <returns>The median of the sequence enumerable of values.</returns>
+        public static float Median(this IEnumerable<float> source)
+        {
+            Review.NotNullArgument(source);
+
+            var sortedList = (from number in source
+                              orderby number
+                              select (float)number).ToList();
+
+            var count = sortedList.Count;
+            int itemIndex = count / 2;
+
+            if (count % 2 == 0)
+            {
+                // Even number of items.
+                return (sortedList[itemIndex] + sortedList[itemIndex - 1]) / (float)2;
+            }
+
+            // Odd number of items.
+            return sortedList[itemIndex];
+        }
+
+        /// <summary>
+        /// Computes the median of a sequence enumerable of nullable float values that are obtained
+        /// by invoking a transform function on each element of the input sequence enumerable.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the elements of source.</typeparam>
+        /// <param name="source">A sequence enumerable of values to calculate the median of.</param>
+        /// <param name="selector">A transform function to apply to each element.</param>
+        /// <returns>The median of the sequence enumerable of values.</returns>
+        public static float? Median<TSource>(this IEnumerable<TSource> source, Func<TSource, float> selector)
+        {
+            Review.NotNullArgument(source);
+            Review.NotNullArgument(selector);
+
+            return source.Select(selector).Median();
+        }
+
+        /// <summary>
+        /// Computes the median of a sequence enumerable of double values.
+        /// </summary>
+        /// <param name="source">A sequence enumerable of double values to calculate the median of.</param>
+        /// <returns>The median of the sequence enumerable of values.</returns>
+        public static double Median(this IEnumerable<double> source)
+        {
+            Review.NotNullArgument(source);
+
+            var sortedList = (from number in source
+                              orderby number
+                              select (double)number).ToList();
+
+            var count = sortedList.Count;
+            int itemIndex = count / 2;
+
+            if (count % 2 == 0)
+            {
+                // Even number of items.
+                return (sortedList[itemIndex] + sortedList[itemIndex - 1]) / (double)2;
+            }
+
+            // Odd number of items.
+            return sortedList[itemIndex];
+        }
+
+        /// <summary>
+        /// Computes the median of a sequence enumerable of nullable double values that are obtained
+        /// by invoking a transform function on each element of the input sequence enumerable.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the elements of source.</typeparam>
+        /// <param name="source">A sequence enumerable of values to calculate the median of.</param>
+        /// <param name="selector">A transform function to apply to each element.</param>
+        /// <returns>The median of the sequence enumerable of values.</returns>
+        public static double Median<TSource>(this IEnumerable<TSource> source, Func<TSource, double> selector)
+        {
+            Review.NotNullArgument(source);
+            Review.NotNullArgument(selector);
+
+            return source.Select(selector).Median();
         }
     }
 }

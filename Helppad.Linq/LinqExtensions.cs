@@ -361,7 +361,9 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static TSource[] ToArray<TSource>(this IEnumerable<TSource> enumerable, int skip, int take)
         {
-            return enumerable.Skip(skip).Take(take).ToArray();
+            return enumerable.Skip(skip)
+                .Take(take)
+                .ToArray();
         }
 
         /// <summary>
@@ -523,7 +525,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<TSource> Pad<TSource>(this IEnumerable<TSource> source, int width)
         {
-            return Pad(source, width, default(TSource));
+            return Pad(source, width, default);
         }
 
         /// <summary>
@@ -1234,9 +1236,212 @@ namespace Helppad.Linq
         {
             using var enumerator = enumerable.GetEnumerator();
             
-            return agreggate.Invoke(delegate {
+            // base on passed function
+            return agreggate.Invoke(delegate 
+            {
                 return (enumerator.MoveNext(), enumerator.Current);
             });
+        }
+
+        /// <summary>
+        /// Simple fork operation from a single enumerate.
+        /// </summary>
+        /// <typeparam name="TSource">The target type of the sequence enumerable.</typeparam>
+        /// <param name="enumerable">The target sequence enumerable.</param>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public static (IEnumerable<TSource> Left, IEnumerable<TSource> Right) Fork<TSource>(this IEnumerable<TSource> enumerable, Predicate<TSource> predicate)
+        {
+            return (
+                enumerable.Where(e => predicate(e)),
+                enumerable.Where(e => !predicate(e))
+            );
+        }
+
+        /// <summary>
+        /// Make a full join operation.
+        /// </summary>
+        /// <typeparam name="TFirst"></typeparam>
+        /// <typeparam name="TSecond"></typeparam>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="enumerableSource"></param>
+        /// <param name="inner"></param>
+        /// <param name="sourceKeySelector"></param>
+        /// <param name="innerKeySelector"></param>
+        /// <param name="firstSelector"></param>
+        /// <param name="innerSelector"></param>
+        /// <param name="joinSelector"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static IEnumerable<TResult> NestedJoin<TFirst, TSecond, TKey, TResult>(
+            this IEnumerable<TFirst> enumerableSource,
+            IEnumerable<TSecond> inner,
+            Func<TFirst, TKey> sourceKeySelector,
+            Func<TSecond, TKey> innerKeySelector,
+            Func<TFirst, TResult> firstSelector,
+            Func<TSecond, TResult> innerSelector,
+            Func<TFirst, TSecond, TResult> joinSelector,
+            IEqualityComparer<TKey> comparer = null)
+        {
+            // check argument
+            Review.NotNullArgument(enumerableSource);
+            Review.NotNullArgument(inner);
+            Review.NotNullArgument(sourceKeySelector);
+            Review.NotNullArgument(innerKeySelector);
+            Review.NotNullArgument(firstSelector);
+            Review.NotNullArgument(innerSelector);
+            Review.NotNullArgument(joinSelector);
+
+            var seconds = inner.Select(BySecond(innerKeySelector)).ToArray();
+            var secondLookup = seconds.ToLookup(element => element.Key, item => item.Value, comparer);
+            var firstKeys = new HashSet<TKey>(comparer);
+
+            // using loop
+            foreach (var item in enumerableSource)
+            {
+                var key = sourceKeySelector.Invoke(item);
+                firstKeys.Add(key);
+
+                using var enumerator = secondLookup[key].GetEnumerator();
+
+                // check
+                if (enumerator.MoveNext())
+                {
+                    do { 
+                        yield return joinSelector.Invoke(item, enumerator.Current);
+                    } while (enumerator.MoveNext());
+                }
+                else
+                {
+                    enumerator.Dispose();
+                    yield return firstSelector.Invoke(item);
+                }
+            }
+
+            foreach (var se in seconds)
+            {
+                // for second
+                if (!firstKeys.Contains(se.Key))
+                    yield return 
+                        innerSelector.Invoke(se.Value);
+            }
+
+            
+            static Func<TSecond, KeyValuePair<TKey, TSecond>> BySecond(Func<TSecond, TKey> secondKeySelector)
+            {
+                return element => new KeyValuePair<TKey, TSecond>(secondKeySelector(element), element);
+            }
+        }
+
+        /// <summary>
+        /// Make a merge with two enuemrable sequences without bind member or relation just by position.
+        /// </summary>
+        /// <remarks>
+        /// If the second or first enumerable sequences than more larger than other then in cross selection
+        /// will has default value.
+        /// </remarks>
+        /// <typeparam name="TSource">The target type of the main enumerable sequence.</typeparam>
+        /// <typeparam name="TInner">The target type of the inner enumerable sequence.</typeparam>
+        /// <typeparam name="TSourceSelector">The select type of the main enumerable sequence.</typeparam>
+        /// <typeparam name="TInnerSelector">he select type of the inner enumerable sequence.</typeparam>
+        /// <typeparam name="TResult">The final result from merge selector.</typeparam>
+        /// <param name="enuemrableSource">The main enuemrable sequence.</param>
+        /// <param name="innerEnumerable">The inner enuemrable sequence</param>
+        /// <param name="sourceKeySelector">The source selector.</param>
+        /// <param name="innerKeySelector">The inner selector.</param>
+        /// <param name="crossSelector">The cross selection to make the merge operation.</param>
+        /// <returns></returns>
+        public static IEnumerable<TResult> CrossMerge<TSource, TInner, TSourceSelector, TInnerSelector, TResult>(
+            this IEnumerable<TSource> enuemrableSource,
+            IEnumerable<TInner> innerEnumerable,
+            Func<TSource, TSourceSelector> sourceKeySelector,
+            Func<TInner, TInnerSelector> innerKeySelector,
+            Func<TSourceSelector, TInnerSelector, TResult> crossSelector)
+        {
+            // check argument
+            Review.NotNullArgument(enuemrableSource);
+            Review.NotNullArgument(innerEnumerable);
+            Review.NotNullArgument(sourceKeySelector);
+            Review.NotNullArgument(innerKeySelector);
+            Review.NotNullArgument(crossSelector);
+             
+            using var enumerator1 = enuemrableSource.GetEnumerator(); 
+            using var enumerator2 = innerEnumerable.GetEnumerator();
+
+            // the selections
+            TSourceSelector selectionOne;
+            TInnerSelector selectionTwo;
+            
+            // for while loop
+            while (true)
+            {
+                bool hasEnumerator1 = enumerator1.MoveNext();
+                bool hasEnumerator2 = enumerator2.MoveNext();
+
+                // for main source
+                if (hasEnumerator1)
+                {
+                    selectionOne = sourceKeySelector.Invoke(enumerator1.Current);
+                }
+                else
+                {
+                    selectionOne = default;
+                }
+
+                // for inner source
+                if (hasEnumerator2)
+                {
+                    selectionTwo = innerKeySelector.Invoke(enumerator2.Current);
+                }
+                else
+                {
+                    selectionTwo = default;
+                }
+
+                // break rule to get out
+                if (hasEnumerator2 && !hasEnumerator1)
+                {
+                    break;
+                }
+                else
+                {
+                    // put on return the cross result from selections
+                    yield return crossSelector.Invoke(selectionOne, selectionTwo);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Make a join by relation computed base on one predicate that recive two elements.
+        /// </summary>
+        /// <typeparam name="TOuter">The target type of the main enumerable sequence.</typeparam>
+        /// <typeparam name="TInner">The target type of the inner enumerable sequence.</typeparam>
+        /// <typeparam name="TResult">The final result from merge selector.</typeparam>
+        /// <param name="outer"></param>
+        /// <param name="inner"></param>
+        /// <param name="evaluate"></param>
+        /// <param name="resultSelector"></param>
+        /// <returns></returns>
+        public static IEnumerable<TResult> JoinBy<TOuter, TInner, TResult>(this IEnumerable<TOuter> outer, IEnumerable<TInner> inner, Func<TOuter, TInner, bool> evaluate, Func<TOuter, TInner, TResult> resultSelector)
+        {
+            // check argument
+            Review.NotNullArgument(outer);
+            Review.NotNullArgument(inner);
+            Review.NotNullArgument(evaluate);
+            Review.NotNullArgument(resultSelector);
+
+            foreach (var @out in outer)
+            {
+                foreach (var @in in inner)
+                {
+                    // check pair elements
+                    if (evaluate.Invoke(@out, @in))
+                    {
+                        yield return resultSelector.Invoke(@out, @in);
+                    }
+                }
+            }
         }
     }
 }
