@@ -310,6 +310,28 @@ namespace Helppad.Linq
         }
 
         /// <summary>
+        /// Make a selection base on condition.
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="condition"></param>
+        /// <param name="positiveCase"></param>
+        /// <param name="negativeCase"></param>
+        /// <returns></returns>
+        public static IEnumerable<TResult> SelectIf<TSource, TResult>(this IEnumerable<TSource> enumerable, bool condition, Func<TSource, TResult> positiveCase, Func<TSource, TResult> negativeCase)
+        {
+            if (condition)
+            {
+                return enumerable.Select(positiveCase);
+            }
+            else
+            {
+                return enumerable.Select(negativeCase);
+            }
+        }
+
+        /// <summary>
         /// Create a new enumerable from a count and random elements.
         /// </summary>
         /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
