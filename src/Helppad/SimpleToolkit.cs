@@ -520,8 +520,8 @@ namespace Helppad
         /// <summary>
         /// Swaps the value of float numbers.
         /// </summary>
-        /// <param name="leftValue">The first <see cref="System.Int64"/> is pass to right</param>
-        /// <param name="rightValue">The second <see cref="System.Int64"/> is pass to left</param>
+        /// <param name="leftValue">The first <see cref="System.Float"/> is pass to right</param>
+        /// <param name="rightValue">The second <see cref="System.Float"/> is pass to left</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Swap(ref float leftValue, ref float rightValue)
         {
@@ -533,8 +533,8 @@ namespace Helppad
         /// <summary>
         /// Swaps the value of double numbers.
         /// </summary>
-        /// <param name="leftValue">The first <see cref="System.Int64"/> is pass to right</param>
-        /// <param name="rightValue">The second <see cref="System.Int64"/> is pass to left</param>
+        /// <param name="leftValue">The first <see cref="System.Double"/> is pass to right</param>
+        /// <param name="rightValue">The second <see cref="System.Double"/> is pass to left</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Swap(ref double leftValue, ref double rightValue)
         {
@@ -546,8 +546,8 @@ namespace Helppad
         /// <summary>
         /// Swaps the value of decimal numbers.
         /// </summary>
-        /// <param name="leftValue">The first <see cref="System.Int64"/> is pass to right</param>
-        /// <param name="rightValue">The second <see cref="System.Int64"/> is pass to left</param>
+        /// <param name="leftValue">The first <see cref="System.Decimal"/> is pass to right</param>
+        /// <param name="rightValue">The second <see cref="System.Decimal"/> is pass to left</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Swap(ref decimal leftValue, ref decimal rightValue)
         {
