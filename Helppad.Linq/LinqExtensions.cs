@@ -459,6 +459,38 @@ namespace Helppad.Linq
         }
 
         /// <summary>
+        /// Creates a <see cref="ILookup{TKey,TValue}" /> from a sequence enumerable.
+        /// From key pair value.
+        /// </summary>
+        /// <typeparam name="TKey">The target type of the key.</typeparam>
+        /// <typeparam name="TValue">The target type of the value.</typeparam>
+        /// <param name="enumerable">The source sequence of key-value pairs.</param>
+        /// <param name="comparer">The comparer for keys. (optional)</param>
+        /// <returns></returns>
+        public static ILookup<TKey, TValue> ToLookup<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> enumerable,
+            IEqualityComparer<TKey> comparer = null)
+        {
+            if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
+            return enumerable.ToLookup(x => x.Key, x => x.Value, comparer);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="ILookup{TKey,TValue}" /> from a sequence enumerable.
+        /// From a tuple.
+        /// </summary>
+        /// <typeparam name="TKey">The target type of the key.</typeparam>
+        /// <typeparam name="TValue">The target type of the value.</typeparam>
+        /// <param name="enumerable">The source sequence of key-value pairs.</param>
+        /// <param name="comparer">The comparer for keys. (optional)</param>
+        /// <returns></returns>
+        public static ILookup<TKey, TValue> ToLookup<TKey, TValue>(this IEnumerable<Tuple<TKey, TValue>> enumerable,
+            IEqualityComparer<TKey> comparer = null)
+        {
+            if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
+            return enumerable.ToLookup(x => x.Item1, x => x.Item2, comparer);
+        }
+
+        /// <summary>
         /// Returns a sequence with a range of elements in the source sequence
         /// moved to a new offset.
         /// </summary>
@@ -1066,7 +1098,8 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static bool SequenceEqualBy<TSource, TKey>(this IEnumerable<TSource> enumerable, IEnumerable<TSource> enumerable2, Func<TSource, TKey> keySelection)
         {
-            return enumerable.Select(keySelection).SequenceEqual(enumerable2.Select(keySelection));
+            return enumerable.Select(keySelection)
+                .SequenceEqual(enumerable2.Select(keySelection));
         }
 
         /// <summary>
@@ -1081,7 +1114,8 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static bool SequenceEqualBy<TSource, TKey>(this IEnumerable<TSource> enumerable, IEnumerable<TSource> enumerable2, Func<TSource, TKey> keySelection, IEqualityComparer<TKey> equality)
         {
-            return enumerable.Select(keySelection).SequenceEqual(enumerable2.Select(keySelection), comparer: equality);
+            return enumerable.Select(keySelection)
+                .SequenceEqual(enumerable2.Select(keySelection), comparer: equality);
         }
 
         /// <summary>
@@ -1249,12 +1283,14 @@ namespace Helppad.Linq
         /// <typeparam name="TSource">The target type of the sequence enumerable.</typeparam>
         /// <param name="enumerable">The target sequence enumerable.</param>
         /// <param name="predicate"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// On the left the elements that give negatives and on the right the positives.
+        /// </returns>
         public static (IEnumerable<TSource> Left, IEnumerable<TSource> Right) Fork<TSource>(this IEnumerable<TSource> enumerable, Predicate<TSource> predicate)
         {
             return (
-                enumerable.Where(e => predicate(e)),
-                enumerable.Where(e => !predicate(e))
+                enumerable.Where(e => !predicate(e)),
+                enumerable.Where(e => predicate(e))
             );
         }
 
@@ -1442,6 +1478,97 @@ namespace Helppad.Linq
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Make a comparision from two sequence.
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="second"></param>
+        /// <param name="comparision"></param>
+        /// <returns></returns>
+        public static int Compare<TSource, TKey>(this IEnumerable<TSource> enumerable, IEnumerable<TSource> second, Func<IEnumerable<TSource>, TKey> comparision)
+        where TKey: IComparable<TKey>
+        {
+            // check argument
+            Review.NotNullArgument(enumerable);
+            Review.NotNullArgument(second);
+            Review.NotNullArgument(comparision);
+            
+            var compare1 = comparision.Invoke(enumerable);
+            var compare2 = comparision.Invoke(second);
+            return compare1.CompareTo(compare2);
+        }
+
+        /// <summary>
+        /// Simple clear method to purge in the sequence enumerable all null values.
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+#nullable enable
+        public static IEnumerable<TSource> ClearNull<TSource>(this IEnumerable<TSource?> enumerable)
+            where TSource : struct
+        {
+#pragma warning disable CS8629 // Nullable value type may be null.
+            return enumerable.Where(x => x.HasValue).Select(x => x.Value);
+#pragma warning restore CS8629 // Nullable value type may be null.
+        }
+#nullable disable
+
+        /// <summary>
+        /// The nested loop generate a multidimensional
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static TSource[][] NestedFactory<TSource>(int first, int second, Func<int,int, TSource> func)
+        {
+            var result = new TSource[first][];
+            for (int i = 0; i < first; i++)
+            {
+                result[i] = new TSource[second];
+
+                for (int j = 0; j < second; j++)
+                {
+                    result[i][j] = func.Invoke(i, j);
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <param name="third"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static TSource[][][] NestedFactory<TSource>(int first, int second, int third, Func<int, int, int, TSource> func)
+        {
+            var result = new TSource[first][][];
+            for (int i = 0; i < first; i++)
+            {
+                result[i] = new TSource[second][];
+
+                for (int j = 0; j < second; j++)
+                {
+                    result[i][j] = new TSource[third];
+                    for (int j2 = 0; j2 < third; j2++)
+                    {
+                        result[i][j][j2] = func.Invoke(i, j, j2);
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }
