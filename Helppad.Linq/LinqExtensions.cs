@@ -156,6 +156,26 @@ namespace Helppad.Linq
         }
 
         /// <summary>
+        /// Execute the passed action at each element in sequence enumerable.
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static IEnumerable<TSource> Execute<TSource>(this IEnumerable<TSource> enumerable, Action<TSource> action)
+        {
+            Review.NotNullArgument(enumerable);
+            Review.NotNullArgument(action);
+
+            // for each element
+            foreach (var element in enumerable)
+            {
+                action(element);
+                yield return element;
+            }
+        }
+
+        /// <summary>
         /// Is like a where but invert.
         /// </summary>
         /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
@@ -1088,6 +1108,26 @@ namespace Helppad.Linq
         }
 
         /// <summary>
+        /// Return from sequence enumerable take the last count.
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public static IEnumerable<TSource> TakeLast<TSource>(this IEnumerable<TSource> enumerable, int count)
+        {
+            using var enumerator = enumerable.Reverse().GetEnumerator();
+            int i = 0;
+            
+            // for next
+            while (enumerator.MoveNext() && i++ < count)
+            {
+                // put on yield
+                yield return enumerator.Current;
+            }
+        }
+
+        /// <summary>
         /// Determines whether two sequences are equal by comparing their elements by using projection.
         /// </summary>
         /// <typeparam name="TSource"></typeparam>
@@ -1519,7 +1559,7 @@ namespace Helppad.Linq
 #nullable disable
 
         /// <summary>
-        /// The nested loop generate a multidimensional
+        /// The nested loop generate a multidimensional.
         /// </summary>
         /// <typeparam name="TSource"></typeparam>
         /// <param name="first"></param>
@@ -1543,7 +1583,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// 
+        /// The nested loop generate a multidimensional.
         /// </summary>
         /// <typeparam name="TSource"></typeparam>
         /// <param name="first"></param>
@@ -1569,6 +1609,44 @@ namespace Helppad.Linq
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Evaluate the if the last element of the target enumerable
+        /// is equals to the second sequence enumerable.
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static bool EndsWith<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource> comparer = null)
+        {
+            if (first == null) throw new ArgumentNullException(nameof(first));
+            if (second == null) throw new ArgumentNullException(nameof(second));
+
+            comparer ??= EqualityComparer<TSource>.Default;
+            var arr = second.ToArray();
+            return arr.SequenceEqual(first.TakeLast(arr.Length), comparer);
+        }
+
+        /// <summary>
+        /// Evaluate the if the start of element of the target enumerable
+        /// is equals to the second sequence enumerable.
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static bool StartWith<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource> comparer = null)
+        {
+            if (first == null) throw new ArgumentNullException(nameof(first));
+            if (second == null) throw new ArgumentNullException(nameof(second));
+
+            comparer ??= EqualityComparer<TSource>.Default;
+            var arr = second.ToArray();
+            return arr.SequenceEqual(first.Take(arr.Length), comparer);
         }
     }
 }
