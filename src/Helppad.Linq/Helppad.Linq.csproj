@@ -3,13 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>9.0</LangVersion>
-    
     <AssemblyName>Helppad.Linq</AssemblyName>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <BuildInParallel>false</BuildInParallel>
     <DebugType>portable</DebugType>
     <OutputType>Library</OutputType>
-    
     <PackageId>Helppad.Linq</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageVersion>1.2.1</PackageVersion>
@@ -20,6 +18,8 @@
     <IsPackable>true</IsPackable>
     <IsTrimeable>true</IsTrimeable>
     
+    <PackageProjectUrl>https://github.com/oliver021/helppad-net</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>

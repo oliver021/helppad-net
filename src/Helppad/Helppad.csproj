@@ -9,7 +9,6 @@
     <BuildInParallel>false</BuildInParallel>
     <DebugType>portable</DebugType>
     <OutputType>Library</OutputType>
-    
     <PackageId>Helppad</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageVersion>1.2.1</PackageVersion>
@@ -23,10 +22,4 @@
     <PackageProjectUrl>https://github.com/oliver021/helppad-net</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <PathMap>$(MSBuildProjectDirectory)=/</PathMap>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
-
 </Project>
