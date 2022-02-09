@@ -8,12 +8,12 @@ using System.Text;
 namespace Helppad
 {
     /// <summary>
-    /// Simple delegate for method <see cref="SimpleToolkit.Catch"/>
+    /// Simple delegate for method to catch an exception.
     /// </summary>
     /// <typeparam name="TCatch"></typeparam>
     /// <param name="catchedAction"></param>
     /// <param name="catch"></param>
-    public delegate void CatchedAction<TCatch>(CatchedAction<TCatch> catchedAction, TCatch @catch);
+    public delegate void CatchedAction<TCatch>(Action<TCatch> catchedAction, TCatch @catch);
 
     /// <summary>
     /// The basic toolkit that provide some helpers.
@@ -142,7 +142,7 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Make a random string from range '0' to 'z'
+        /// Make a random string from range '0' to 'z'.
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
@@ -156,6 +156,7 @@ namespace Helppad
         /// Make a random string from char range passed and the specific size by argument count.
         /// The range chars is used to set a possibles char to include.
         /// The method use the Random .Net clas to generate string sequence.
+        /// </summary>
         /// <param name="count">The size of the string.</param>
         /// <param name="rangeStart">Begin char range.</param>
         /// <param name="rangeEnd">Begin char range.</param>
@@ -220,7 +221,6 @@ namespace Helppad
         /// </summary>
         /// <typeparam name="T">The target type to use.</typeparam>
         /// <param name="action"></param>
-        /// <param name="fallback"></param>
         public static T Catch<T>(Action action)
             where T : Exception
         {
@@ -232,25 +232,6 @@ namespace Helppad
             catch (Exception err) when (err is T catched)
             {
                 return (catched);
-            }
-        }
-
-        /// <summary>
-        /// Catch an exception and retry execute the same action but with exception instance included.
-        /// Using this method to create resilent way to work
-        /// </summary>
-        /// <typeparam name="T">The target type to use.</typeparam>
-        /// <param name="action"></param>
-        public static void Catch<T>(CatchedAction<T> action)
-            where T : Exception
-        {
-            try
-            {
-                action.Invoke(action,null);
-            }
-            catch (Exception err) when (err is T catched)
-            {
-                action.Invoke(action, catched);
             }
         }
 
@@ -269,7 +250,6 @@ namespace Helppad
         /// Catch an exception and return the fallback.
         /// </summary>
         /// <param name="action"></param>
-        /// <param name="fallback"></param>
         public static Exception Catch(Action action)
         {
             try
@@ -281,17 +261,6 @@ namespace Helppad
             {
                 return err;
             }
-        }
-
-        /// <summary>
-        /// Catch an exception and retry execute the same action but with exception instance included.
-        /// Using this method to create resilent way to work.
-        /// </summary>
-        /// <param name="action"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Catch(CatchedAction<Exception> action)
-        {
-            Catch<Exception>(action);
         }
 
         /// <summary>
@@ -520,8 +489,8 @@ namespace Helppad
         /// <summary>
         /// Swaps the value of float numbers.
         /// </summary>
-        /// <param name="leftValue">The first <see cref="System.Float"/> is pass to right</param>
-        /// <param name="rightValue">The second <see cref="System.Float"/> is pass to left</param>
+        /// <param name="leftValue">The first <see cref="System.Single"/> is pass to right</param>
+        /// <param name="rightValue">The second <see cref="System.Single"/> is pass to left</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Swap(ref float leftValue, ref float rightValue)
         {
@@ -689,6 +658,7 @@ namespace Helppad
         /// Dispose all element through an action.
         /// </summary>
         /// <param name="disposables">Enumerable of types must be implement <see cref="IDisposable"/></param>
+        /// <param name="action">The action to execute.</param>
         /// <returns></returns>
         public static void DisposeAll(IEnumerable<IDisposable> disposables, Action action)
         {
@@ -707,8 +677,19 @@ namespace Helppad
     /// </summary>
     public enum MemberSelection
     {
+        /// <summary>
+        /// Tha value indicate properties.
+        /// </summary>
         Properties,
+
+        /// <summary>
+        /// Tha value indicate fields.
+        /// </summary>
         Field,
+        
+        /// <summary>
+        /// Tha value indicate properties and fields.
+        /// </summary>
         Both
     }
 

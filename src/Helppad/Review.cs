@@ -294,7 +294,7 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw the an argument exception if passed
+        /// Throw an argument exception if passed
         /// argument that equal to compare and put the message
         /// </summary>
         /// <param name="condition">Condition that should be true.</param>
@@ -310,7 +310,7 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw the an exception if passed
+        /// Throw an exception if passed
         /// argument that equal to compare and put the message
         /// </summary>
         /// <param name="value">The target value to evaluate base on condition.</param>
@@ -327,7 +327,7 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw the an exception if passed
+        /// Throw an exception if passed
         /// argument that equal to compare and put the message
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -346,7 +346,7 @@ namespace Helppad
         }
 
         /// <summary>
-        /// Throw the an exception if passed
+        /// Throw an exception if passed
         /// enumerable argument not pass the test
         /// </summary>
         /// <param name="value">The target value to evaluate base on condition.</param>
