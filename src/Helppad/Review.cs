@@ -180,6 +180,70 @@ namespace Helppad
         }
 
         /// <summary>
+        /// Throw the exception <see cref="InvalidOperationException"/> if passed
+        /// action return false
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SuccessOrInvalidOperation(Func<bool> action, string text)
+        {
+            if (action.Invoke())
+            {
+                throw new InvalidOperationException(text);
+            }
+        }
+
+        /// <summary>
+        /// Throw the exception <see cref="InvalidProgramException"/> if passed
+        /// action return false
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SuccessOrInvalidProgram(Func<bool> action, string text)
+        {
+            if (action.Invoke())
+            {
+                throw new InvalidProgramException(text);
+            }
+        }
+
+        /// <summary>
+        /// Throw the exception <see cref="FormatException"/> if passed
+        /// action return false
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SuccessOrBadFormat(Func<bool> action, string text)
+        {
+            if (action.Invoke())
+            {
+                throw new FormatException(text);
+            }
+        }
+
+        /// <summary>
+        /// Throw the exception <see cref="ApplicationException"/> if passed
+        /// action return false
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="text">The text to put in the exception in case it should be thrown.</param>
+        /// <exception cref="Exception">The exception to be thrown if the condition fails.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SuccessOrApplicationException(Func<bool> action, string text)
+        {
+            if (action.Invoke())
+            {
+                throw new ApplicationException(text);
+            }
+        }
+
+        /// <summary>
         /// Throw the null reference exception <see cref="NullReferenceException"/> if passed
         /// argument is null and put the message
         /// </summary>
