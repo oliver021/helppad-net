@@ -264,6 +264,63 @@ namespace System.Linq
         }
 
         /// <summary>
+        /// To replace all element founded by predicate and replace with the passed element.
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="predicate"></param>
+        /// <param name="replacement"></param>
+        /// <returns></returns>
+        public static IEnumerable<TSource> Replace<TSource>(this IEnumerable<TSource> enumerable, Predicate<TSource> predicate, TSource replacement)
+        {
+            Review.NotNullArgument(enumerable);
+            Review.NotNullArgument(predicate);
+
+            using var enumerator = enumerable.GetEnumerator();
+
+            while (enumerator.MoveNext())
+            {
+                if (predicate.Invoke(enumerator.Current))
+                {
+                    yield return replacement;
+                }
+                else
+                {
+                    yield return enumerator.Current;
+                }
+            }
+        }
+
+        /// <summary>
+        /// To replace all element equals to the target and replace with element passed by arguments.
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="comparer"></param>
+        /// <param name="target"></param>
+        /// <param name="replacement"></param>
+        /// <returns></returns>
+        public static IEnumerable<TSource> Replace<TSource>(this IEnumerable<TSource> enumerable, EqualityComparer<TSource> comparer, TSource target, TSource replacement)
+        {
+            Review.NotNullArgument(enumerable);
+            Review.NotNullArgument(comparer);
+
+            using var enumerator = enumerable.GetEnumerator();
+
+            while (enumerator.MoveNext())
+            {
+                if (comparer.Equals(enumerator.Current, target))
+                {
+                    yield return replacement;
+                }
+                else
+                {
+                    yield return enumerator.Current;
+                }
+            }
+        }
+
+        /// <summary>
         /// It's similar like <see cref="Enumerable.Select{TSource, TResult}(IEnumerable{TSource}, Func{TSource, TResult})"/> 
         /// but the result is passed to a callback to store in new enumerable.
         /// </summary>
