@@ -11,11 +11,11 @@ namespace System.Linq
     public static class LinqExtensions
     {
         /// <summary>
-        /// Create an enuemrable with index at enuemration.
+        /// Create an enumerable with index at enuemration.
         /// </summary>
         /// <typeparam name="TSource">The target type.</typeparam>
-        /// <param name="enumerable">The target enuemrable.</param>
-        /// <returns>En enuemrable <see cref="IEnumerable{T}"/> with indexes. </returns>
+        /// <param name="enumerable">The target enumerable.</param>
+        /// <returns>En enumerable <see cref="IEnumerable{T}"/> with indexes. </returns>
         public static IEnumerable<(TSource, int)> ToIndexed<TSource>(this IEnumerable<TSource> enumerable)
         {
             Review.NotNullArgument(enumerable);
@@ -32,13 +32,13 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// Create an enuemrable with index at enuemration.
+        /// Create an enumerable with index at enuemration.
         /// </summary>
         /// <typeparam name="TSource">The target type.</typeparam>
         /// <typeparam name="TReturns">The target return.</typeparam>
-        /// <param name="enumerable">The target enuemrable.</param>
+        /// <param name="enumerable">The target enumerable.</param>
         /// <param name="func">The function to invoke.</param>
-        /// <returns>En enuemrable <see cref="IEnumerable{T}"/> with indexes. </returns>
+        /// <returns>En enumerable <see cref="IEnumerable{T}"/> with indexes. </returns>
         public static IEnumerable<(TSource, TReturns)> ToIndexed<TSource, TReturns>(this IEnumerable<TSource> enumerable, Func<TSource, TReturns> func)
         {
             Review.NotNullArgument(enumerable);
@@ -55,7 +55,7 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// Apply an action below each element of an enuemrable.
+        /// Apply an action below each element of an enumerable.
         /// It like foreach loop but with
         /// </summary>
         /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
@@ -76,7 +76,7 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// Apply an action below each element of an enuemrable.
+        /// Apply an action below each element of an enumerable.
         /// It like foreach loop but with method.
         /// </summary>
         /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
@@ -97,7 +97,7 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// Apply an action below each element of an enuemrable.
+        /// Apply an action below each element of an enumerable.
         /// It like foreach loop but with method.
         /// </summary>
         /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
@@ -124,7 +124,7 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// Apply an action below each element of an enuemrable.
+        /// Apply an action below each element of an enumerable.
         /// It like foreach loop but with
         /// </summary>
         /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
@@ -150,7 +150,7 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// Apply an action below each element of an enuemrable.
+        /// Apply an action below each element of an enumerable.
         /// It like foreach loop but with
         /// </summary>
         /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
@@ -177,7 +177,8 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// Execute the passed action at each element in enumerable sequence .
+        /// Execute the passed action at each element in enumerable sequence.
+        /// It's like Pipe pattern using IEnumerable iteration. 
         /// </summary>
         /// <typeparam name="TSource"></typeparam>
         /// <param name="enumerable"></param>
@@ -308,7 +309,7 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// Excludes a contiguous number of elements from a enuemrable by a range like (e.g 0-4).
+        /// Excludes a contiguous number of elements from a enumerable by a range like (e.g 0-4).
         /// </summary>
         /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
         /// <param name="enumerable">The target enumerable to exlude elements.</param>
@@ -406,7 +407,7 @@ namespace System.Linq
                 random = new Random();
             }
 
-            // generate the new enuemrable
+            // generate the new enumerable
             for (int i = 0; i < count; i++)
             {
                 int index = random.Next(0, arr.Length);
@@ -793,9 +794,21 @@ namespace System.Linq
         /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
         /// <param name="enumerable">The target enuemration to apply operand.</param>
         /// <param name="separatorFunc"></param>
+        /// <returns></returns>
+        public static IEnumerable<IEnumerable<TSource>> Split<TSource>(this IEnumerable<TSource> enumerable, Func<TSource, bool> separatorFunc)
+        {
+            return enumerable.Split(separatorFunc, false);
+        }
+
+        /// <summary>
+        /// This is similar like <see cref="string.Split(char[])"/> but with generic enumerable.
+        /// </summary>
+        /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
+        /// <param name="enumerable">The target enuemration to apply operand.</param>
+        /// <param name="separatorFunc"></param>
         /// <param name="included"></param>
         /// <returns></returns>
-        public static IEnumerable<IEnumerable<TSource>> Split<TSource>(this IEnumerable<TSource> enumerable, Func<TSource, bool> separatorFunc, bool included = false)
+        public static IEnumerable<IEnumerable<TSource>> Split<TSource>(this IEnumerable<TSource> enumerable, Func<TSource, bool> separatorFunc, bool included)
         {
             Review.NotNullArgument(enumerable);
 
@@ -816,7 +829,7 @@ namespace System.Linq
                     if (sequenceBuffer.Count > 0)
                     {
                         // push sequence
-                        yield return sequenceBuffer;
+                        yield return sequenceBuffer.AsEnumerable();
 
                         // flush sequence
                         sequenceBuffer.Clear();
@@ -832,11 +845,24 @@ namespace System.Linq
         /// <summary>
         /// This is similar like <see cref="string.Split(char[])"/> but with generic enumerable.
         /// </summary>
-        /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
-        /// <param name="enumerable">The target enuemration to apply operand.</param>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="enumerable"></param>
         /// <param name="separatorFunc"></param>
         /// <returns></returns>
         public static IEnumerable<IEnumerable<TSource>> Split<TSource>(this IEnumerable<TSource> enumerable, Func<TSource, TSource, int, bool> separatorFunc)
+        {
+            return enumerable.Split(separatorFunc, false);
+        }
+
+        /// <summary>
+        /// This is similar like <see cref="string.Split(char[])"/> but with generic enumerable.
+        /// </summary>
+        /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
+        /// <param name="enumerable">The target enuemration to apply operand.</param>
+        /// <param name="separatorFunc"></param>
+        /// <param name="included"></param>
+        /// <returns></returns>
+        public static IEnumerable<IEnumerable<TSource>> Split<TSource>(this IEnumerable<TSource> enumerable, Func<TSource, TSource, int, bool> separatorFunc, bool included)
         {
             Review.NotNullArgument(enumerable);
 
@@ -856,27 +882,80 @@ namespace System.Linq
             // do initial element
             do
             {
-                // add for default
-                sequenceBuffer.Add(enumerator.Current);
-
                 // check invoke
                 if (separatorFunc.Invoke(enumerator.Current, prev, i))
                 {
+                    // add for default
+                    if (included)
+                    {
+                        sequenceBuffer.Add(enumerator.Current);
+                    }
+
                     // check buffer
                     if (sequenceBuffer.Count > 0)
                     {
                         // push sequence
-                        yield return sequenceBuffer;
+                        yield return sequenceBuffer.AsEnumerable();
 
                         // flush sequence
                         sequenceBuffer.Clear();
                     }
                 }
+                else
+                {
+                    sequenceBuffer.Add(enumerator.Current);
+                }
             } while (enumerator.MoveNext());
         }
 
         /// <summary>
-        /// Create a key pair value from given enuemrable.
+        /// This is similar like <see cref="string.Split(char[])"/> but with generic enumerable.
+        /// </summary>
+        /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
+        /// <param name="enumerable">The target enuemration to apply operand.</param>
+        /// <param name="separatorFunc"></param>
+        /// <returns></returns>
+        public static IEnumerable<IEnumerable<TSource>> Split<TSource>(this IEnumerable<TSource> enumerable, Func<TSource, TSource[], int, bool> separatorFunc)
+        {
+            Review.NotNullArgument(enumerable);
+
+            using var enumerator = enumerable.GetEnumerator();
+            var sequenceBuffer = new List<TSource>();
+
+            // check sequence contains
+            // next movement
+            if (enumerator.MoveNext() is false)
+            {
+                throw new InvalidOperationException();
+            }
+
+            int i = 0;
+
+            // do initial element
+            do
+            {
+                // check invoke
+                if (separatorFunc.Invoke(enumerator.Current, sequenceBuffer.ToArray(), i))
+                {
+                    // check buffer
+                    if (sequenceBuffer.Count > 0)
+                    {
+                        // push sequence
+                        yield return sequenceBuffer.AsEnumerable();
+
+                        // flush sequence
+                        sequenceBuffer.Clear();
+                    }
+                }
+                else
+                {
+                    sequenceBuffer.Add(enumerator.Current);
+                }
+            } while (enumerator.MoveNext());
+        }
+
+        /// <summary>
+        /// Create a key pair value from given enumerable.
         /// </summary>
         /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
         /// <typeparam name="TKey"></typeparam>
@@ -889,7 +968,7 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// Create a key pair value from given enuemrable.
+        /// Create a key pair value from given enumerable.
         /// </summary>
         /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
         /// <typeparam name="TKey"></typeparam>
@@ -904,7 +983,7 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// Create a key pair value from given enuemrable and key computed by hashcode.
+        /// Create a key pair value from given enumerable and key computed by hashcode.
         /// </summary>
         /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
         /// <param name="source"></param>
@@ -1004,6 +1083,45 @@ namespace System.Linq
             return new RankEnumerable<TSource, TTarget>(enumerable.OrderBy(keySelector)
                 .Take(count)
                 .Select((elm, i) => new RankElement<TSource, TTarget>(i, keySelector.Invoke(elm), elm)));
+        }
+
+        /// <summary>
+        /// Make a joined relationship between two sequences.
+        /// </summary>
+        /// <typeparam name="TFirst"></typeparam>
+        /// <typeparam name="TSecond"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="secondEnumerable"></param>
+        /// <param name="joinCriteria"></param>
+        /// <returns></returns>
+        public static RalatedEnumerable<TFirst, TSecond> JoinRelated<TFirst, TSecond>(this IEnumerable<TFirst> enumerable, IEnumerable<TSecond> secondEnumerable, Func<TFirst, TSecond, bool> joinCriteria)
+        {
+            Review.NotNullArgument(enumerable);
+            Review.NotNullArgument(secondEnumerable);
+            Review.NotNullArgument(joinCriteria);
+
+            // make join relation from internal implementation
+            return new RalatedEnumerable<TFirst, TSecond>(JoinRelatedImpl(enumerable, secondEnumerable,joinCriteria));
+
+            // internal implementation.
+            static IEnumerable<Tuple<TFirst, TSecond>> JoinRelatedImpl(IEnumerable<TFirst> enumerable,
+                                                                       IEnumerable<TSecond> secondEnumerable,
+                                                                       Func<TFirst, TSecond, bool> joinCriteria)
+            {
+                // generate sequence of tuples base on join criteria
+                foreach (TFirst item in enumerable)
+                {
+                    foreach (TSecond item2 in secondEnumerable)
+                    {
+                        if (joinCriteria.Invoke(item, item2))
+                        {
+                            // put on yield
+                            yield return Tuple.Create(item, item2);
+                        }
+                    }
+
+                }
+            }
         }
 
         /// <summary>
@@ -1517,18 +1635,26 @@ namespace System.Linq
         /// <param name="agreggate"></param>
         /// <param name="initial"></param>
         /// <returns></returns>
-        public static TResult AgreggateFor<TSource, TResult>(this IEnumerable<TSource> enumerable, Func<Func<(bool Has, TSource Current)>, TResult> agreggate, TResult initial = default)
+        public static TResult AgreggateFor<TSource, TResult>(this IEnumerable<TSource> enumerable, Func<Func<(bool Has, TSource Current)>, TResult, TResult> agreggate, TResult initial = default)
         {
             Review.NotNullArgument(enumerable);
             Review.NotNullArgument(agreggate);
 
             using var enumerator = enumerable.GetEnumerator();
-            
+
             // base on passed function
             return agreggate.Invoke(delegate 
             {
-                return (enumerator.MoveNext(), enumerator.Current);
-            });
+                if (enumerator.MoveNext())
+                {
+                    return (true, enumerator.Current);
+                }
+                else
+                {
+                    return (false, default);
+                }
+                
+            }, initial);
         }
 
         /// <summary>
@@ -1628,7 +1754,7 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// Make a merge with two enuemrable sequences without bind member or relation just by position.
+        /// Make a merge with two enumerable sequences without bind member or relation just by position.
         /// </summary>
         /// <remarks>
         /// If the second or first enumerable sequences than more larger than other then in cross selection
@@ -1639,27 +1765,27 @@ namespace System.Linq
         /// <typeparam name="TSourceSelector">The select type of the main enumerable sequence.</typeparam>
         /// <typeparam name="TInnerSelector">he select type of the inner enumerable sequence.</typeparam>
         /// <typeparam name="TResult">The final result from merge selector.</typeparam>
-        /// <param name="enuemrableSource">The main enuemrable sequence.</param>
-        /// <param name="innerEnumerable">The inner enuemrable sequence</param>
+        /// <param name="enumerableSource">The main enumerable sequence.</param>
+        /// <param name="innerEnumerable">The inner enumerable sequence</param>
         /// <param name="sourceKeySelector">The source selector.</param>
         /// <param name="innerKeySelector">The inner selector.</param>
         /// <param name="crossSelector">The cross selection to make the merge operation.</param>
         /// <returns></returns>
         public static IEnumerable<TResult> CrossMerge<TSource, TInner, TSourceSelector, TInnerSelector, TResult>(
-            this IEnumerable<TSource> enuemrableSource,
+            this IEnumerable<TSource> enumerableSource,
             IEnumerable<TInner> innerEnumerable,
             Func<TSource, TSourceSelector> sourceKeySelector,
             Func<TInner, TInnerSelector> innerKeySelector,
             Func<TSourceSelector, TInnerSelector, TResult> crossSelector)
         {
             // check argument
-            Review.NotNullArgument(enuemrableSource);
+            Review.NotNullArgument(enumerableSource);
             Review.NotNullArgument(innerEnumerable);
             Review.NotNullArgument(sourceKeySelector);
             Review.NotNullArgument(innerKeySelector);
             Review.NotNullArgument(crossSelector);
              
-            using var enumerator1 = enuemrableSource.GetEnumerator(); 
+            using var enumerator1 = enumerableSource.GetEnumerator(); 
             using var enumerator2 = innerEnumerable.GetEnumerator();
 
             // the selections
@@ -2231,7 +2357,7 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// Find in a sequence enuemrable a match with passed sequence as criteria.
+        /// Find in a sequence enumerable a match with passed sequence as criteria.
         /// </summary>
         /// <typeparam name="TSource"></typeparam>
         /// <param name="enumerable"></param>
@@ -2287,7 +2413,7 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// Find in a sequence enuemrable a match with passed sequence as criteria.
+        /// Find in a sequence enumerable a match with passed sequence as criteria.
         /// This override make the equals operation quick from a predicate.
         /// </summary>
         /// <typeparam name="TSource"></typeparam>

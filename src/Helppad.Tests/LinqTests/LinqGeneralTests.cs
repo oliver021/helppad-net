@@ -14,5 +14,43 @@ namespace Helppad.Tests.LinqTests
 
             Assert.AreEqual(elms1.TakeLast(3), elms2);
         }
+
+        [Test]
+        public void LinqAgreggateFor()
+        {
+            var elms1 = new[] { 3, 3, 3, 3 };
+
+            Assert.AreEqual(elms1.AgreggateFor((pull, initial) => {
+                while (true)
+                {
+                    var iteration = pull.Invoke();
+
+                    if (iteration.Has is false)
+                    {
+                        break;
+                    }
+
+                    initial += iteration.Current;
+                }
+
+                return initial;
+            },0), 12);
+
+            Assert.AreEqual(elms1.Take(3).AgreggateFor((pull, initial) => {
+                while (true)
+                {
+                    var iteration = pull.Invoke();
+
+                    if (iteration.Has is false)
+                    {
+                        break;
+                    }
+
+                    initial *= iteration.Current;
+                }
+
+                return initial;
+            }, 1), 27);
+        }
     }
 }
