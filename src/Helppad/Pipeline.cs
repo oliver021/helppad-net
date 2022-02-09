@@ -74,7 +74,7 @@ namespace Helppad
         }
 
         /// <summary>
-        /// 
+        /// Execute the pipeline by pass an argument.
         /// </summary>
         /// <param name="argument"></param>
         public void Run(T argument)
@@ -165,6 +165,7 @@ namespace Helppad
         /// Run async pipeline
         /// </summary>
         /// <param name="arg"></param>
+        /// <param name="cancellation"></param>
         /// <returns></returns>
         /// <exception cref="OperationCanceledException"></exception>
         /// <exception cref="ArgumentException"></exception>
