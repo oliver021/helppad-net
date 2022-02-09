@@ -870,5 +870,214 @@ namespace Helppad.Linq
 
             return source.Select(selector).Median();
         }
+
+        /// <summary>
+        /// Make a validation and transformation of a range.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="predicate"></param>
+        /// <param name="transform"></param>
+        /// <returns></returns>
+        public static IEnumerable<int> For(int start, int end, Predicate<int> predicate, Func<int,int> transform)
+        {
+            for (int i = start; i <= end; i++)
+            {
+                if (predicate.Invoke(i))
+                {
+                    yield return transform.Invoke(i);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Make a validation and transformation of a range.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="predicate"></param>
+        /// <param name="transform"></param>
+        /// <returns></returns>
+        public static IEnumerable<float> For(int start, int end, Predicate<int> predicate, Func<int, float> transform)
+        {
+            for (int i = start; i <= end; i++)
+            {
+                if (predicate.Invoke(i))
+                {
+                    yield return transform.Invoke(i);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Make a validation and transformation of a range.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="predicate"></param>
+        /// <param name="transform"></param>
+        /// <returns></returns>
+        public static IEnumerable<double> For(int start, int end, Predicate<int> predicate, Func<int, double> transform)
+        {
+            for (int i = start; i <= end; i++)
+            {
+                if (predicate.Invoke(i))
+                {
+                    yield return transform.Invoke(i);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Make a validation and transformation of a range.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="predicate"></param>
+        /// <param name="transform"></param>
+        /// <returns></returns>
+        public static IEnumerable<decimal> For(int start, int end, Predicate<int> predicate, Func<int, decimal> transform)
+        {
+            for (int i = start; i <= end; i++)
+            {
+                if (predicate.Invoke(i))
+                {
+                    yield return transform.Invoke(i);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Make a validation and transformation of a range.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="predicate"></param>
+        /// <param name="transform"></param>
+        /// <param name="step"></param>
+        /// <returns></returns>
+        public static IEnumerable<int> For(int start, int end, int step, Predicate<int> predicate, Func<int, int> transform)
+        {
+            for (int i = start; i <= end; i += step)
+            {
+                if (predicate.Invoke(i))
+                {
+                    yield return transform.Invoke(i);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Make a validation and transformation of a range.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="predicate"></param>
+        /// <param name="transform"></param>
+        /// <param name="step"></param>
+        /// <returns></returns>
+        public static IEnumerable<float> For(int start, int end, int step, Predicate<int> predicate, Func<int, float> transform)
+        {
+            for (int i = start; i <= end; i += step)
+            {
+                if (predicate.Invoke(i))
+                {
+                    yield return transform.Invoke(i);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Make a validation and transformation of a range.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="predicate"></param>
+        /// <param name="transform"></param>
+        /// <param name="step"></param>
+        /// <returns></returns>
+        public static IEnumerable<double> For(int start, int end, int step, Predicate<int> predicate, Func<int, double> transform)
+        {
+            for (int i = start; i <= end; i += step)
+            {
+                if (predicate.Invoke(i))
+                {
+                    yield return transform.Invoke(i);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Make a validation and transformation of a range.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="predicate"></param>
+        /// <param name="transform"></param>
+        /// <param name="step"></param>
+        /// <returns></returns>
+        public static IEnumerable<decimal> For(int start, int end, int step, Predicate<int> predicate, Func<int, decimal> transform)
+        {
+            for (int i = start; i <= end; i += step)
+            {
+                if (predicate.Invoke(i))
+                {
+                    yield return transform.Invoke(i);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Make an IEnumerable list of random numbers serie.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="count"></param>
+        /// <param name="random"></param>
+        /// <returns></returns>
+        public static IEnumerable<int> Shuffle(int start, int end, int count, Random random)
+        {
+            Review.SuccessOrInvalidOperation(() => end > start, text: "The count should be grather than range.");
+            Review.NotNullArgument(random);
+
+            for (int i = 0; i < count; i++)
+            {
+                yield return random.Next(start, end);
+            }
+        }
+
+        /// <summary>
+        /// Make an IEnumerable list of random numbers serie.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="count"></param>
+        /// <param name="random"></param>
+        /// <returns></returns>
+        public static IEnumerable<int> ShuffleAndNotRepeat(int start, int end, int count, Random random)
+        {
+            Review.SuccessOrInvalidOperation(() => end > start && (end-start) > count,
+                text: "The count should be grather than range.");
+            Review.NotNullArgument(random);
+
+            var set = new HashSet<int>();
+
+            for (int i = 0; i < count; i++)
+            {
+                find:
+                // find the random number
+                var current = random.Next(start, end);
+                
+                // add if not registered
+                if (set.Add(current))
+                {
+                    yield return current;
+                }
+                else
+                {
+                    goto find;
+                }
+            }
+        }
     }
 }
