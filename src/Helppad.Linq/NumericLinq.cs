@@ -17,6 +17,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<short> GreatherThan(this IEnumerable<short> enumerable, short target)
         {
+            Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > target);
         }
 
@@ -28,6 +29,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<short> GreatherEqualThan(this IEnumerable<short> enumerable, short target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n >= target);
         }
 
@@ -39,6 +41,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<short> LessThan(this IEnumerable<short> enumerable, short target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n < target);
         }
 
@@ -50,6 +53,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<short> LessEqualThan(this IEnumerable<short> enumerable, short target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= target);
         }
 
@@ -62,6 +66,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<short> InRange(this IEnumerable<short> enumerable, short start, short end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= end && n >= start);
         }
 
@@ -74,6 +79,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<short> InOut(this IEnumerable<short> enumerable, short start, short end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > end && n < start);
         }
 
@@ -85,6 +91,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<ushort> GreatherThan(this IEnumerable<ushort> enumerable, ushort target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > target);
         }
 
@@ -96,6 +103,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<ushort> GreatherEqualThan(this IEnumerable<ushort> enumerable, ushort target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n >= target);
         }
 
@@ -107,6 +115,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<ushort> LessThan(this IEnumerable<ushort> enumerable, ushort target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n < target);
         }
 
@@ -118,6 +127,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<ushort> LessEqualThan(this IEnumerable<ushort> enumerable, ushort target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= target);
         }
 
@@ -130,6 +140,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<ushort> InRange(this IEnumerable<ushort> enumerable, ushort start, ushort end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= end && n >= start);
         }
 
@@ -142,6 +153,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<ushort> InOut(this IEnumerable<ushort> enumerable, ushort start, ushort end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > end && n < start);
         }
 
@@ -153,6 +165,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<int> GreatherThan(this IEnumerable<int> enumerable, int target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > target);
         }
 
@@ -164,6 +177,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<int> GreatherEqualThan(this IEnumerable<int> enumerable, int target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n >= target);
         }
 
@@ -175,6 +189,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<int> LessThan(this IEnumerable<int> enumerable, int target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n < target);
         }
 
@@ -186,6 +201,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<int> LessEqualThan(this IEnumerable<int> enumerable, int target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= target);
         }
 
@@ -198,6 +214,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<int> InRange(this IEnumerable<int> enumerable, int start, int end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= end && n >= start);
         }
 
@@ -210,6 +227,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<int> InOut(this IEnumerable<int> enumerable, int start, int end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > end && n < start);
         }
 
@@ -221,6 +239,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<uint> GreatherThan(this IEnumerable<uint> enumerable, uint target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > target);
         }
 
@@ -232,6 +251,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<uint> GreatherEqualThan(this IEnumerable<uint> enumerable, uint target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n >= target);
         }
 
@@ -243,6 +263,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<uint> LessThan(this IEnumerable<uint> enumerable, uint target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n < target);
         }
 
@@ -254,6 +275,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<uint> LessEqualThan(this IEnumerable<uint> enumerable, uint target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= target);
         }
 
@@ -266,6 +288,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<uint> InRange(this IEnumerable<uint> enumerable, uint start, uint end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= end && n >= start);
         }
 
@@ -278,6 +301,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<uint> InOut(this IEnumerable<uint> enumerable, uint start, uint end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > end && n < start);
         }
 
@@ -289,6 +313,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<long> GreatherThan(this IEnumerable<long> enumerable, long target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > target);
         }
 
@@ -300,6 +325,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<long> GreatherEqualThan(this IEnumerable<long> enumerable, long target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n >= target);
         }
 
@@ -311,6 +337,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<long> LessThan(this IEnumerable<long> enumerable, long target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n < target);
         }
 
@@ -322,6 +349,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<long> LessEqualThan(this IEnumerable<long> enumerable, long target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= target);
         }
 
@@ -334,6 +362,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<long> InRange(this IEnumerable<long> enumerable, long start, long end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= end && n >= start);
         }
 
@@ -346,6 +375,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<long> InOut(this IEnumerable<long> enumerable, long start, long end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > end && n < start);
         }
 
@@ -357,6 +387,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<ulong> GreatherThan(this IEnumerable<ulong> enumerable, ulong target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > target);
         }
 
@@ -368,6 +399,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<ulong> GreatherEqualThan(this IEnumerable<ulong> enumerable, ulong target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n >= target);
         }
 
@@ -379,6 +411,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<ulong> LessThan(this IEnumerable<ulong> enumerable, ulong target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n < target);
         }
 
@@ -390,6 +423,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<ulong> LessEqualThan(this IEnumerable<ulong> enumerable, ulong target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= target);
         }
 
@@ -402,6 +436,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<ulong> InRange(this IEnumerable<ulong> enumerable, ulong start, ulong end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= end && n >= start);
         }
 
@@ -414,6 +449,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<ulong> InOut(this IEnumerable<ulong> enumerable, ulong start, ulong end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > end && n < start);
         }
 
@@ -425,6 +461,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<float> GreatherThan(this IEnumerable<float> enumerable, float target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > target);
         }
 
@@ -436,6 +473,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<float> GreatherEqualThan(this IEnumerable<float> enumerable, float target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n >= target);
         }
 
@@ -447,6 +485,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<float> LessThan(this IEnumerable<float> enumerable, float target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n < target);
         }
 
@@ -458,6 +497,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<float> LessEqualThan(this IEnumerable<float> enumerable, float target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= target);
         }
 
@@ -470,6 +510,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<float> InRange(this IEnumerable<float> enumerable, float start, float end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= end && n >= start);
         }
 
@@ -482,6 +523,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<float> InOut(this IEnumerable<float> enumerable, float start, float end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > end && n < start);
         }
 
@@ -492,6 +534,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<float> WhereIsNan(this IEnumerable<float> enumerable)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => float.IsNaN(n));
         }
 
@@ -502,6 +545,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<float> WhereIsInfinite(this IEnumerable<float> enumerable)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => float.IsInfinity(n));
         }
 
@@ -513,6 +557,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<double> GreatherThan(this IEnumerable<double> enumerable, double target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > target);
         }
 
@@ -524,6 +569,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<double> GreatherEqualThan(this IEnumerable<double> enumerable, double target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n >= target);
         }
 
@@ -535,6 +581,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<double> LessThan(this IEnumerable<double> enumerable, double target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n < target);
         }
 
@@ -546,6 +593,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<double> LessEqualThan(this IEnumerable<double> enumerable, double target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= target);
         }
 
@@ -558,6 +606,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<double> InRange(this IEnumerable<double> enumerable, double start, double end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= end && n >= start);
         }
 
@@ -570,6 +619,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<double> InOut(this IEnumerable<double> enumerable, double start, double end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > end && n < start);
         }
 
@@ -580,6 +630,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<double> WhereIsNan(this IEnumerable<double> enumerable)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => double.IsNaN(n));
         }
 
@@ -590,6 +641,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<double> WhereIsInfinite(this IEnumerable<double> enumerable)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => double.IsInfinity(n));
         }
 
@@ -601,6 +653,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<decimal> GreatherThan(this IEnumerable<decimal> enumerable, decimal target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > target);
         }
 
@@ -612,6 +665,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<decimal> GreatherEqualThan(this IEnumerable<decimal> enumerable, decimal target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n >= target);
         }
 
@@ -623,6 +677,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<decimal> LessThan(this IEnumerable<decimal> enumerable, decimal target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n < target);
         }
 
@@ -634,6 +689,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<decimal> LessEqualThan(this IEnumerable<decimal> enumerable, decimal target)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= target);
         }
 
@@ -646,6 +702,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<decimal> InRange(this IEnumerable<decimal> enumerable, decimal start, decimal end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n <= end && n >= start);
         }
 
@@ -658,6 +715,7 @@ namespace Helppad.Linq
         /// <returns></returns>
         public static IEnumerable<decimal> InOut(this IEnumerable<decimal> enumerable, decimal start, decimal end)
         {
+			Review.NotNullArgument(enumerable);
             return enumerable.Where(n => n > end && n < start);
         }
 
