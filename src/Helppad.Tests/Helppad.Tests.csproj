@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Helppad.Linq\Helppad.Linq.csproj" />
     <ProjectReference Include="..\Helppad\Helppad.csproj" />
+    <ProjectReference Include="..\Helppad.Algorithms\Helppad.Algorithms.csproj" />
   </ItemGroup>
 
 </Project>

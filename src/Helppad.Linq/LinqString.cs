@@ -323,7 +323,7 @@ namespace Helppad.Linq
         }
 
         /// <summary>
-        /// Make a string instance from <see cref="IEnumerable{char}"/>
+        /// Make a string instance from <see cref="IEnumerable{T}"/>.
         /// </summary>
         /// <param name="enumerable">The target enumerable that contain string instances.</param>
         /// <returns></returns>
@@ -341,6 +341,26 @@ namespace Helppad.Linq
         public static string Join(this IEnumerable<string> enumerable, string term)
         {
             return string.Join(term, enumerable);
+        }
+
+        /// <summary>
+        /// Make a string instance from an enumerable string by space.
+        /// </summary>
+        /// <param name="enumerable">The target enumerable that contain string instances.</param>
+        /// <returns></returns>
+        public static string JoinBySpace(this IEnumerable<string> enumerable)
+        {
+            return string.Join(" ", enumerable);
+        }
+
+        /// <summary>
+        /// Make a string instance from an enumerable string by break line.
+        /// </summary>
+        /// <param name="enumerable">The target enumerable that contain string instances.</param>
+        /// <returns></returns>
+        public static string JoinByLine(this IEnumerable<string> enumerable)
+        {
+            return string.Join(Environment.NewLine, enumerable);
         }
     }
 }

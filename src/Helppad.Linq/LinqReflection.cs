@@ -294,6 +294,16 @@ namespace Helppad.Linq
         }
 
         /// <summary>
+        /// Filter by a conditional criteria base on types target type feature.
+        /// </summary>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static IEnumerable<Type> ShouldBePointer(this IEnumerable<Type> enumerable)
+        {
+            return enumerable.Where(t => t.IsPointer);
+        }
+
+        /// <summary>
         /// Determine if any element in type sequence enuemrable has the feature that evaluate this oeprand.
         /// </summary>
         /// <param name="enumerable"></param>
@@ -452,6 +462,51 @@ namespace Helppad.Linq
         public static IEnumerable<Type> AllExportedTypes(this IEnumerable<Assembly> assemblies)
         {
             return assemblies.SelectMany(x => x.GetExportedTypes());
+        }
+
+        /// <summary>
+        /// Get all type from the assemblies sequence enumerable that has the feature that evaluate this oeprand.
+        /// </summary>
+        /// <param name="assemblies"></param>
+        /// <returns></returns>
+        public static IEnumerable<Type> AllIsClass(this IEnumerable<Assembly> assemblies)
+        {
+            return assemblies.SelectMany(x => x.GetTypes()).Where(t => t.IsClass);
+        }
+
+        /// <summary>
+        /// Get all type from the assemblies sequence enumerable that has the feature that evaluate this oeprand.
+        /// </summary>
+        /// <param name="assemblies"></param>
+        /// <returns></returns>
+        public static IEnumerable<Type> AllIsInterface(this IEnumerable<Assembly> assemblies)
+        {
+            return assemblies.SelectMany(x => x.GetTypes()).Where(t => t.IsInterface);
+        }
+
+        /// <summary>
+        /// Get all type from the assemblies sequence enumerable that has the feature that evaluate this oeprand.
+        /// </summary>
+        /// <param name="assemblies"></param>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public static IEnumerable<Type> AllWhere(this IEnumerable<Assembly> assemblies, Func<Type, bool> predicate = null)
+        {
+            return assemblies.SelectMany(x => x.GetTypes()).Where(t => t.IsGenericType);
+        }
+
+        /// <summary>
+        /// Get all type from the assemblies sequence enumerable that has the feature that evaluate this oeprand.
+        /// Using the attribute passsed as type parameter to find type
+        /// that has this attribute or inherit from this attribute.
+        /// </summary>
+        /// <typeparam name="T">The attribute type to find.</typeparam>
+        /// <param name="assemblies"></param>
+        /// <returns></returns>
+        public static IEnumerable<Type> AllWithAttribute<T>(this IEnumerable<Assembly> assemblies)
+        {
+            return assemblies.SelectMany(x => x.GetTypes())
+            .Where(t => t.GetCustomAttributes(typeof(T), true).Any());
         }
     }
 }
