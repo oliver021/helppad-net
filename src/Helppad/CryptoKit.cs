@@ -118,7 +118,7 @@ namespace Helppad
 
             alg = SimpleToolkit.FallbackValue(alg, () => SHA512.Create());
             if(transient) alg.Dispose();
-
+            
             return FormatBytes(alg.ComputeHash(src), StandardFormat.HexLarge);
         }
 

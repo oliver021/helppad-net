@@ -1,7 +1,10 @@
 ﻿using Helppad;
 using Helppad.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Reflection;
 
 namespace System.Linq
 {
@@ -1579,6 +1582,88 @@ namespace System.Linq
         }
 
         /// <summary>
+        /// Simple flatten implementation for multidimensional enumerable.
+        /// </summary>
+        /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
+        /// <param name="enumerable">The target enuemration to apply operand.</param>
+        /// <returns></returns>
+        public static IEnumerable<TSource> FlattenBy<TSource>(this IEnumerable<IEnumerable<TSource>> enumerable, Func<TSource, bool> func)
+        {
+            Review.NotNullArgument(enumerable);
+
+            return enumerable.SelectMany(x => x).Where(func);
+        }
+
+        /// <summary>
+        /// This method uses the Select and GroupBy methods of LINQ
+        /// to partition the input  sequence
+        /// into chunks of the given size. It then uses the Select
+        /// method again to create an sequence containing
+        /// the elements of the input sequence as inner sequences.
+        /// 
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        /// <example>
+        ///     var enumerable = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        ///
+        ///     var result = Unflatten(enumerable, 3);
+        ///
+        ///     foreach (var innerEnumerable in result)
+        ///     {
+        ///         Console.WriteLine(string.Join(", ", innerEnumerable));
+        ///     }
+        /// </example>
+        public static IEnumerable<IEnumerable<T>> Unflatten<T>(IEnumerable<T> enumerable, int size)
+        {
+            // Use LINQ to partition the enumerable into chunks of the given size
+            return enumerable.Select((x, i) => new { Index = i, Value = x })
+                            .GroupBy(x => x.Index / size)
+                            .Select(x => x.Select(v => v.Value));
+        }
+
+        /// <summary>
+        /// This method uses the OrderBy method of LINQ to shuffle the
+        /// elements of the input sequence using a random ordering function.
+        /// The Guid.NewGuid method generates a new globally unique identifier
+        /// (GUID) each time it is called, which provides a sufficient level 
+        /// of randomness for shuffling the elements of the sequence.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> Shuffle<T>(IEnumerable<T> enumerable)
+        {
+            // Use LINQ to shuffle the elements of the input sequence
+            return enumerable.OrderBy(x => Guid.NewGuid());
+        }
+
+        /// <summary>
+        /// This method uses the OrderBy and Take methods of LINQ 
+        /// to select a random subset of the input sequence. 
+        /// It then uses the All method to check if the predicate
+        /// function returns true for all elements in the subset.
+        /// If the predicate function returns true for all elements,
+        /// the method returns true; otherwise, it returns false.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="predicate"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public static bool RandomCheck<T>(IEnumerable<T> enumerable, Func<T, bool> predicate, int count)
+        {
+            // Use LINQ to select a random subset of the input sequence
+            IEnumerable<T> subset = enumerable.OrderBy(x => Guid.NewGuid()).Take(count);
+
+            // Check if the predicate function returns true for all elements in the subset
+            return subset.All(predicate);
+        }
+
+        /// <summary>
         /// Filter all element by equiality comparision.
         /// </summary>
         /// <typeparam name="TSource">The target source type of the enumeration.</typeparam>
@@ -1841,7 +1926,34 @@ namespace System.Linq
             Review.NotNullArgument(sourceKeySelector);
             Review.NotNullArgument(innerKeySelector);
             Review.NotNullArgument(crossSelector);
-             
+
+            // This code defines an extension method named CrossMerge that performs a cross merge of two enumerable sources and returns the results as an IEnumerable<TResult> sequence. The method takes five generic type parameters: TSource, TInner, TSourceSelector, TInnerSelector, and TResult.
+            // The method has four input parameters:
+
+            // enumerableSource: an IEnumerable<TSource> sequence representing
+            // the main source of data
+            // innerEnumerable: an IEnumerable<TInner> sequence representing the inner source of data
+            // sourceKeySelector: a Func<TSource, TSourceSelector> delegate that selects the key for the main source
+            // innerKeySelector: a Func < TInner, TInnerSelector > delegate that selects the key for the inner source
+            // crossSelector: a Func < TSourceSelector, TInnerSelector, TResult > delegate that performs the cross
+            //
+            // selection on the two keys
+            // The method first checks the input arguments to ensure that they are not null.It then creates two
+            // enumerators to enumerate the two sources.
+            // The method enters a while loop and uses the enumerators to iterate over the two sources. For each iteration,
+            // it uses the key selectors
+            // to select the keys for the main and inner sources.It then uses the cross selector to perform the cross selection
+            // and returns the result using the yield keyword.
+            
+            // The loop continues until one of the sources is exhausted,
+            // at which point the method exits.
+            
+            // Overall, this method can be used to perform a cross merge of two
+            // enumerable sources using user-defined key selectors and
+            // cross selection logic. It is implemented as an extension
+            // method, which means it can be called on an instance of an
+            // IEnumerable<TSource> type as if it were a method of that type.
+            
             using var enumerator1 = enumerableSource.GetEnumerator(); 
             using var enumerator2 = innerEnumerable.GetEnumerator();
 
@@ -1889,7 +2001,8 @@ namespace System.Linq
         }
 
         /// <summary>
-        /// Make a join by relation computed base on one predicate that recive two elements.
+        /// Make a join by relation computed base on one predicate that recive
+        /// two elements.
         /// </summary>
         /// <typeparam name="TOuter">The target type of the main enumerable sequence.</typeparam>
         /// <typeparam name="TInner">The target type of the inner enumerable sequence.</typeparam>
@@ -2414,6 +2527,29 @@ namespace System.Linq
         }
 
         /// <summary>
+        /// This method uses the FirstOrDefault and SkipWhile methods of LINQ
+        /// to select the first element that matches the predicate
+        /// and the subsequence starting from it, respectively. 
+        /// It then uses the SequenceEqual method to compare the subsequence 
+        /// with the other sequence. If the sequences are equal, 
+        /// the method returns true; otherwise, it returns false.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="predicate"></param>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public static bool EqualFrom<T>(IEnumerable<T> enumerable, Func<T, bool> predicate, IEnumerable<T> other)
+        {
+            // Use LINQ to select the first element that matches the predicate and the subsequence starting from it
+            T first = enumerable.FirstOrDefault(predicate);
+            IEnumerable<T> subsequence = enumerable.SkipWhile(x => !x.Equals(first));
+
+            // Compare the subsequence with the other sequence
+            return subsequence.SequenceEqual(other);
+        }
+
+        /// <summary>
         /// Find in a sequence enumerable a match with passed sequence as criteria.
         /// </summary>
         /// <typeparam name="TSource"></typeparam>
@@ -2524,6 +2660,132 @@ namespace System.Linq
                 // not match
                 return -1;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// This method uses a LINQ query to select all subsequences of the input sequence.
+        /// 
+        /// It then uses the Any method to check if any of the subsequences is repeated in the input sequence by comparing it with the elements that follow it using the SequenceEqual method. If any repeated subsequence is found, 
+        /// the method returns true; otherwise, it returns false.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static bool HasRepeatedSubsequence<T>(IEnumerable<T> enumerable)
+        {
+            // Use LINQ to select all subsequences of the input sequence
+            IEnumerable<IEnumerable<T>> subsequences =
+                from i in Enumerable.Range(0, enumerable.Count())
+                from j in Enumerable.Range(i + 1, enumerable.Count() - i - 1)
+                select enumerable.Skip(i).Take(j - i);
+
+            // Check if any of the subsequences is repeated in the input sequence
+            return subsequences.Any(subsequence => subsequence.SequenceEqual(enumerable.Skip(subsequence.Count())));
+        }
+
+        /// <summary>
+        /// This method is similar to the previous implementation, but instead of using the Any method to check for the presence of repeated subsequences, it uses the Where method to filter the subsequences that are repeated in the input sequence, 
+        /// and returns them in a new sequence.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static IEnumerable<IEnumerable<T>> GetRepeatedSubsequences<T>(IEnumerable<T> enumerable)
+        {
+            // Use LINQ to select all subsequences of the input sequence
+            IEnumerable<IEnumerable<T>> subsequences =
+                from i in Enumerable.Range(0, enumerable.Count())
+                from j in Enumerable.Range(i + 1, enumerable.Count() - i - 1)
+                select enumerable.Skip(i).Take(j - i);
+
+            // Return the subsequences that are repeated in the input sequence
+            return subsequences.Where(subsequence => subsequence.SequenceEqual(enumerable.Skip(subsequence.Count())));
+        }
+
+        /// <summary>
+        /// Determinate if given items by index are equals.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <param name="indices"></param>
+        /// <returns></returns>
+        public static bool AreItemsEqual<T>(IEnumerable<T> enumerable, int[] indices)
+        {
+            // Check if the input indices array is empty
+            if (!indices.Any())
+            {
+                return false;
+            }
+
+            // Use LINQ to check if all items are equal
+            return indices.All(i => enumerable.ElementAt(i).Equals(enumerable.ElementAt(indices[0])));
+        }
+
+        /// <summary>
+        /// This method uses the GroupBy and Any methods of
+        /// LINQ to group the items of the input sequence by
+        /// their values, and check if any of the groups has
+        /// more than one element. If there are no groups 
+        /// with more than one element, it means that there
+        /// are no repeated items in the sequence,
+        /// and the method returns true. Otherwise,
+        /// it returns false.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static bool HasNoRepeatedItems<T>(IEnumerable<T> enumerable)
+        {
+            // Use LINQ to check if there are any repeated items in the sequence
+            return !enumerable.GroupBy(x => x).Any(g => g.Count() > 1);
+        }
+
+        /// <summary>
+        /// This method uses a combination of LINQ and iterator blocks to 
+        /// iterate over the elements of the input sequence, and remove 
+        /// consecutive duplicates by comparing each element to the previous element. 
+        /// If an element is equal to the previous element,
+        /// it is skipped; otherwise, it is included in the output sequence.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> RemoveConsecutiveDuplicates<T>(IEnumerable<T> enumerable)
+        {
+            // Use LINQ to remove consecutive duplicates from the input sequence
+            T previous = enumerable.First();
+            yield return previous;
+            foreach (T current in enumerable.Skip(1))
+            {
+                if (!current.Equals(previous))
+                {
+                    yield return current;
+                    previous = current;
+                }
+            }
+        }
+
+        /// <summary>
+        /// This method uses the GroupBy and OrderByDescending methods
+        /// of LINQ to group the elements of the input sequence by their
+        /// frequency, and sort the groups by their frequency in descending order.
+        /// It then uses the ThenBy method to sort the groups by their keys
+        /// in ascending order. Finally, it uses the SelectMany 
+        /// method to flatten the groups and return the sorted sequence.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> SortByFrequency<T>(IEnumerable<T> enumerable)
+        {
+            // Use LINQ to group the elements of the input sequence by their frequency
+            var groups = enumerable.GroupBy(x => x)
+                                   .OrderByDescending(g => g.Count())
+                                   .ThenBy(g => g.Key);
+
+            // Flatten the groups and return the sorted sequence
+            return groups.SelectMany(g => g);
         }
     }
 }
