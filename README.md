@@ -24,7 +24,7 @@ This library provides **high-performance**, **standards-driven**, and **battle-t
 - ✅ **Unit Conversion & Math Algorithms** – Seamless conversion utilities and **optimized** mathematical functions.
 - ✅ **DateToolkit** – Utilities and **optimized** Dates functions.
 - ✅ **Review Guards** – A collection of function to guard you methods.
-- ✅ **A Lot more** – You ilfind a tons of method, classes and more for every day tasks.
+- ✅ **A Lot more** – You will find a tons of method, classes and more for every day tasks.
 
 ---
 
